@@ -1,0 +1,8 @@
+{
+  "appId": "com.optimalsurgicals.quotationapp",
+  "appName": "Optimal Command v11.0",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}
