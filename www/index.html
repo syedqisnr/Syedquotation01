@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Optimal Command v12.0 — Enterprise Suite</title>
+<title>Optimal Command v14.0 — Enterprise Suite (95 Tools)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   OPTIMAL COMMAND v10.0 ENTERPRISE SUITE (80 TOOLS)
+   OPTIMAL COMMAND v14.0 ENTERPRISE SUITE (95 TOOLS)
    Proprietor: S.S. Razvi (B.E., M.E., PGDSCM Symbiosis)
    Optimal Surgicals & Medi Corporation, Chhatrapati Sambhajinagar
    ============================================================ */
@@ -727,6 +727,23 @@ table, .cost-table {
   margin-left: auto;
 }
 
+
+/* Search No-Results Notice (Hidden by default) */
+.no-results {
+  display: none !important;
+  text-align: center;
+  padding: 24px 16px;
+  color: var(--ink-soft);
+  font-size: 13px;
+  background: var(--card);
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  margin: 16px 0 24px;
+}
+.no-results.show {
+  display: block !important;
+}
+
 </style>
 </head>
 <body>
@@ -741,7 +758,7 @@ table, .cost-table {
         <button class="home-btn" onclick="openTab('dashboard')">← Home</button>
       </div>
     </div>
-    <h1>Optimal Command <span class="v25-badge">v12.0 ENTERPRISE SUITE (95 TOOLS)</span></h1>
+    <h1>Optimal Command <span class="v25-badge">v14.0 ENTERPRISE SUITE (95 TOOLS)</span></h1>
     <p>Executive operating ledger &amp; commercial intelligence suite for medical equipment enterprise, hospital field sales, quotation intelligence, and purchase awareness.</p>
   </header>
 
@@ -1621,7 +1638,7 @@ table, .cost-table {
         </button>
       </div>
 
-      <div class="no-results" id="noResults">No tool matches that search. Try terms like "quotation", "stamp", "gst", "hospital", or "reverse".</div>
+      <div class="no-results" id="noResults" style="display:none !important;">No tool matches that search. Try terms like "quotation", "stamp", "gst", "hospital", or "reverse".</div>
     </section>
 
     <!-- ============================================================
@@ -2356,8 +2373,8 @@ table, .cost-table {
         <div class="stamp-toolbar" style="justify-content:space-between;align-items:center;">
           <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
             <span class="tool-lbl">Photo:</span>
-            <button class="btn secondary small" type="button" onclick="document.getElementById('is_file').click()">📁 Select</button>
-            <button class="btn secondary small" type="button" onclick="triggerNativeCamera()">📷 Camera</button>
+            <label for="is_file" class="btn secondary small" style="cursor:pointer;display:inline-flex;align-items:center;gap:4px;">📁 Select Gallery</label>
+            <label for="is_camera_file" class="btn secondary small" style="cursor:pointer;display:inline-flex;align-items:center;gap:4px;">📷 Camera</label>
             <button class="btn secondary small" type="button" onclick="rotateImage90()">⟳ Rotate</button>
             <button class="btn secondary small" type="button" onclick="resetAllStampPositions()">↺ Reset</button>
           </div>
@@ -2371,7 +2388,8 @@ table, .cost-table {
           <span style="color:var(--ink-soft);font-size:11px;">💡 Double-tap any stamp to unlock &amp; move</span>
         </div>
 
-        <input type="file" accept="image/*" id="is_file" style="display:none;" onchange="loadStampImage(event)">
+        <input type="file" accept="image/*" id="is_file" style="position:absolute;width:1px;height:1px;opacity:0.01;pointer-events:none;z-index:-1;" onchange="loadStampImage(event)">
+        <input type="file" accept="image/*" capture="environment" id="is_camera_file" style="position:absolute;width:1px;height:1px;opacity:0.01;pointer-events:none;z-index:-1;" onchange="loadStampImage(event)">
 
         <div class="is-canvas-wrap" id="is_canvas_wrap" style="margin-top:8px;">
           <div class="canvas-empty-state" id="is_empty_state">
@@ -5115,24 +5133,71 @@ table, .cost-table {
         </div>
       </fieldset>
 
-      <!-- Step 3: Interactive Letter Editor -->
+      <!-- Step 3: Interactive Letter Editor & Rich Formatting -->
       <fieldset style="margin-top:16px;">
-        <legend>📝 3. Edit &amp; Refine Letter Content (Live Updates Below)</legend>
-        <p class="sub" style="margin-top:-6px;">Edit any paragraph, order number, or date. The professional letterhead below updates immediately:</p>
-        <textarea id="lh_editor_text" rows="9" style="font-family:'IBM Plex Sans',sans-serif;font-size:13px;line-height:1.6;" oninput="updateLetterheadPreview()"></textarea>
+        <legend>📝 3. Edit &amp; Format Letter Content (Live Canvas Sync)</legend>
+        <p class="sub" style="margin-top:-6px;">Edit any paragraph, order number, or date. Canvas preview updates in real-time:</p>
 
-        <!-- Blue Ink Stamp & Signature Controls -->
-        <div style="background:var(--teal-tint);border:1px solid var(--line);border-radius:8px;padding:10px;margin-top:10px;">
-          <strong style="font-size:12px;color:var(--teal-deep);display:block;margin-bottom:6px;">🖋 Blue Ink Stamp &amp; Signature Controls:</strong>
+        <!-- Rich Formatting Toolbar -->
+        <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:6px;">
+          <button type="button" class="btn secondary small" onclick="boldSelectedLetterText()" title="Wrap selected text in **bold**"><b>𝗕 Bold Selected (**text**)</b></button>
+          <button type="button" class="btn secondary small" onclick="insertBulletLetterText()">• Bullet Item</button>
+          <button type="button" class="btn secondary small" onclick="insertUnderlineLetterText()"><u>Underline</u></button>
+          <span style="font-size:11px;color:var(--ink-soft);margin-left:auto;">Select words &amp; tap Bold to emphasize</span>
+        </div>
+
+        <textarea id="lh_editor_text" rows="11" style="font-family:'IBM Plex Sans',sans-serif;font-size:13.5px;line-height:1.6;" oninput="renderLetterheadCanvas()"></textarea>
+
+        <!-- Blue Ink Stamp, Signature & Date Position Controls -->
+        <div style="background:var(--teal-tint);border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:10px;">
+          <strong style="font-size:12.5px;color:var(--teal-deep);display:block;margin-bottom:8px;">🖋 Official Seal, Signature &amp; Date Controls:</strong>
+          
           <div class="row3">
-            <div class="checkbox-row"><input type="checkbox" id="lh_show_stamp" checked onchange="updateLetterheadPreview()"><label for="lh_show_stamp">Official Rubber Stamp (Blue Ink)</label></div>
-            <div class="checkbox-row"><input type="checkbox" id="lh_show_sign" checked onchange="updateLetterheadPreview()"><label for="lh_show_sign">S.S. Razvi Signature (Blue Ink)</label></div>
-            <div class="checkbox-row"><input type="checkbox" id="lh_show_date" checked onchange="updateLetterheadPreview()"><label for="lh_show_date">Date Badge Included</label></div>
+            <div class="checkbox-row"><input type="checkbox" id="lh_show_stamp" checked onchange="renderLetterheadCanvas()"><label for="lh_show_stamp">Official Rubber Stamp (Blue Ink)</label></div>
+            <div class="checkbox-row"><input type="checkbox" id="lh_show_sign" checked onchange="renderLetterheadCanvas()"><label for="lh_show_sign">S.S. Razvi Signature (Blue Ink)</label></div>
+            <div class="checkbox-row"><input type="checkbox" id="lh_show_date" checked onchange="renderLetterheadCanvas()"><label for="lh_show_date">Date Badge Included</label></div>
           </div>
+
+          <!-- Date Position Selector -->
+          <div class="row2" style="margin-top:10px;">
+            <div class="field">
+              <label>Date Position on Document</label>
+              <select id="lh_date_pos" onchange="renderLetterheadCanvas()">
+                <option value="top_right" selected>Top-Right (Standard Corporate — Below Ref No.)</option>
+                <option value="bottom_left">Bottom-Left (Administrative Verification — Next to Stamp)</option>
+                <option value="top_left">Top-Left (Government Notification)</option>
+                <option value="bottom_right">Bottom-Right (Directly Above Signatory)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Signature Input Style</label>
+              <div style="display:flex;gap:4px;margin-top:2px;">
+                <button type="button" class="sig-tab active" id="tab_lhsig_type" onclick="switchLhSigMode('type')">🖋️ Cursive</button>
+                <button type="button" class="sig-tab" id="tab_lhsig_draw" onclick="switchLhSigMode('draw')">✍️ Draw Finger</button>
+                <button type="button" class="sig-tab" id="tab_lhsig_upload" onclick="switchLhSigMode('upload')">📁 Upload</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Signature Draw Pad for Finger / Stylus -->
+          <div id="lhsig_mode_draw" style="display:none;background:#fff;border:1.5px solid var(--teal);border-radius:8px;padding:8px;text-align:center;margin-top:8px;">
+            <div style="font-size:11px;color:var(--ink-soft);margin-bottom:4px;">Draw signature with finger or stylus inside box:</div>
+            <canvas id="lh_sigpad" width="400" height="120" style="border:1px dashed #CBD5E1;border-radius:4px;touch-action:none;background:#FAFAFA;width:100%;max-width:380px;display:block;margin:0 auto;"></canvas>
+            <div style="display:flex;gap:6px;justify-content:center;margin-top:6px;">
+              <button type="button" class="btn small secondary" onclick="clearLhSigPad()">Clear</button>
+              <button type="button" class="btn small" onclick="applyLhDrawnSig()" style="background:var(--teal);color:#fff;">✓ Apply Drawn Signature</button>
+            </div>
+          </div>
+
+          <!-- Signature Image Upload -->
+          <div id="lhsig_mode_upload" style="display:none;margin-top:8px;">
+            <input type="file" id="lh_sig_file" accept="image/*" onchange="loadLhCustomSig(event)">
+          </div>
+
         </div>
       </fieldset>
 
-            <!-- Step 4: Executive A4 Letterhead Preview (Identical to Saved Image & Print) -->
+      <!-- Step 4: Executive A4 Letterhead Preview (Identical to Saved Image & Print) -->
       <fieldset style="margin-top:16px;">
         <legend>📄 4. Executive A4 Letterhead Preview (Identical to Saved Image &amp; Print)</legend>
         <p class="sub" style="margin-top:-6px;">Preview is the exact A4 document rendered at full resolution. Use zoom controls to inspect typography, blue seal, and signature:</p>
@@ -6480,19 +6545,24 @@ function filterCategory(cat, btn){
 
 // Tool Search on Home Dashboard
 function filterTools(){
-  const q = (document.getElementById('toolSearch').value||'').trim().toLowerCase();
+  const q = (document.getElementById('toolSearch')?.value || '').trim().toLowerCase();
   const cards = [...document.querySelectorAll('#dashboard .dash-card')];
   let visible = 0;
-  cards.forEach(c=>{
-    const match = !q || (c.dataset.search||'').toLowerCase().includes(q) || c.querySelector('.dash-title').textContent.toLowerCase().includes(q) || c.querySelector('.dash-desc').textContent.toLowerCase().includes(q);
+  cards.forEach(c => {
+    const match = !q || (c.dataset.search || '').toLowerCase().includes(q) || (c.querySelector('.dash-title')?.textContent || '').toLowerCase().includes(q) || (c.querySelector('.dash-desc')?.textContent || '').toLowerCase().includes(q);
     c.hidden = !match;
     if(match) visible++;
   });
-  document.querySelectorAll('#dashboard .dash-group').forEach(g=>{
-    const anyVisible = [...g.querySelectorAll('.dash-card')].some(c=>!c.hidden);
+  document.querySelectorAll('#dashboard .dash-group').forEach(g => {
+    const anyVisible = [...g.querySelectorAll('.dash-card')].some(c => !c.hidden);
     g.style.display = anyVisible ? '' : 'none';
   });
-  document.getElementById('noResults').classList.toggle('show', visible===0);
+  const noRes = document.getElementById('noResults');
+  if(noRes){
+    const shouldShow = (visible === 0 && q.length > 0);
+    noRes.classList.toggle('show', shouldShow);
+    noRes.style.display = shouldShow ? 'block' : 'none';
+  }
 }
 
 // ================= PRE-LOADED MEDICAL & SURGICAL CATALOG =================
@@ -7563,7 +7633,7 @@ function triggerSearchMic(){
 
 
 // ============================================================
-// OPTIMAL COMMAND v12.0 ADVANCED CAPABILITIES SUITE
+// OPTIMAL COMMAND v14.0 ADVANCED CAPABILITIES SUITE
 // ============================================================
 
 // 1. UNIVERSAL ANDROID BACK NAVIGATION & EDGE-SWIPE GESTURE
@@ -7669,14 +7739,19 @@ function getBiometricPin(){
   return localStorage.getItem('optimal_bio_pin') || '1234';
 }
 
-function lockAppBiometric(){
+function lockAppBiometric(force){
+  // If session is already unlocked, DO NOT lock when navigating or coming back to home!
+  if(!force && sessionStorage.getItem('optimal_app_session_unlocked') === '1'){
+    return;
+  }
+  if(!isBiometricEnabled()) return;
   if(document.getElementById('biometric_lock_screen')) return;
 
   const lockHTML = `
     <div id="biometric_lock_screen">
       <div style="text-align:center;margin-bottom:12px;">
         <div style="font-size:32px;margin-bottom:4px;">🛡️</div>
-        <h2 style="margin:0;font-size:19px;color:#4ADE80;letter-spacing:0.5px;">OPTIMAL COMMAND v12.0</h2>
+        <h2 style="margin:0;font-size:19px;color:#4ADE80;letter-spacing:0.5px;">OPTIMAL COMMAND v14.0</h2>
         <div style="font-size:11.5px;color:#9CA3AF;margin-top:2px;">Security Vault · S.S. Razvi (Proprietor)</div>
       </div>
 
@@ -7727,6 +7802,8 @@ function lockAppBiometric(){
 function unlockAppBiometric(){
   const lock = document.getElementById('biometric_lock_screen');
   if(!lock) return;
+
+  try { sessionStorage.setItem('optimal_app_session_unlocked', '1'); } catch(e){}
 
   if(navigator.vibrate) navigator.vibrate([40, 50, 40]);
   const status = document.getElementById('bio_status_text');
@@ -7795,11 +7872,10 @@ function updateBioDots(){
   }
 }
 
-// Background auto-relock listener
+// Background listener: Keeps session unlocked while switching apps/picking photos
 document.addEventListener('visibilitychange', function(){
-  if(document.hidden && isBiometricEnabled()){
-    lockAppBiometric();
-  }
+  // Do not lock on visibilitychange because file pickers, cameras, and WhatsApp trigger visibilitychange!
+  // Android OS automatically clears sessionStorage when the app is completely closed/terminated.
 });
 
 // 3. 1-TAP INSTANT BACKUP & RESTORE ENGINE
@@ -7852,7 +7928,7 @@ function shareBackupWhatsApp(){
   const calcs = JSON.parse(localStorage.getItem('optimal_voicecalc') || '[]').length;
   const letters = JSON.parse(localStorage.getItem('optimal_saved_letters') || '[]').length;
 
-  const msg = `*OPTIMAL COMMAND v12.0 — FULL SYSTEM BACKUP SUMMARY*\nCompany: Optimal Surgicals & Medi Corporation\nProprietor: S.S. Razvi (+91 7972444631)\nDate: ${new Date().toLocaleString('en-IN')}\n\n*Active Data Inventory:*\n• Quotations & Invoices: ${quotes}\n• CRM Hospital Leads: ${crm}\n• Running Voice Ledger: ${ledger} entries\n• Sequential Calculations: ${calcs}\n• Saved Official Letters: ${letters}\n• Contacts Book: ${contacts}\n\n(Full JSON backup file available in device Downloads)`;
+  const msg = `*OPTIMAL COMMAND v14.0 — FULL SYSTEM BACKUP SUMMARY*\nCompany: Optimal Surgicals & Medi Corporation\nProprietor: S.S. Razvi (+91 7972444631)\nDate: ${new Date().toLocaleString('en-IN')}\n\n*Active Data Inventory:*\n• Quotations & Invoices: ${quotes}\n• CRM Hospital Leads: ${crm}\n• Running Voice Ledger: ${ledger} entries\n• Sequential Calculations: ${calcs}\n• Saved Official Letters: ${letters}\n• Contacts Book: ${contacts}\n\n(Full JSON backup file available in device Downloads)`;
   window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
@@ -14451,6 +14527,7 @@ function init(){
   try{ renderVoiceCalcList(); }catch(e){}
   try{ rotateInsight(); }catch(e){}
   try{ enhanceReports(); }catch(e){}
+  try{ filterTools(); }catch(e){}
 }
 
 // 38. SUPPLIER & MANUFACTURER INTEL (Lowest Price & Intelligent Sourcing Suite)
@@ -16291,8 +16368,14 @@ function sharePRWhatsApp(id){
 // TOOL 83: EXECUTIVE LETTERHEAD WRITER & 4 STYLES STUDIO
 // ============================================================
 
+
+// ============================================================
+// TOOL 83: OFFICIAL LETTERHEAD WRITER & STAMPED DOCUMENT STUDIO (v14.0)
+// ============================================================
+
 window.__lhCustomPadImg = null;
-window.__lastLetterheadPDFBlob = null;
+window.__lhCustomSigImg = null;
+window.__lhSigMode = 'type';
 
 function onLetterheadTypeChange(){
   const type = document.getElementById('lh_pad_type')?.value;
@@ -16301,7 +16384,7 @@ function onLetterheadTypeChange(){
 
   if(uploadField) uploadField.style.display = (type === 'upload' ? 'block' : 'none');
   if(customWrap) customWrap.style.display = (type === 'custom_company' ? 'block' : 'none');
-  updateLetterheadPreview();
+  renderLetterheadCanvas();
 }
 
 function loadCustomLetterheadFile(evt){
@@ -16312,7 +16395,7 @@ function loadCustomLetterheadFile(evt){
     const img = new Image();
     img.onload = function(){
       window.__lhCustomPadImg = img;
-      updateLetterheadPreview();
+      renderLetterheadCanvas();
       showToast('✓ Blank letterhead image loaded');
     };
     img.src = e.target.result;
@@ -16320,18 +16403,161 @@ function loadCustomLetterheadFile(evt){
   reader.readAsDataURL(file);
 }
 
+function switchLhSigMode(mode){
+  window.__lhSigMode = mode;
+  ['type', 'draw', 'upload'].forEach(m => {
+    const tab = document.getElementById('tab_lhsig_' + m);
+    const box = document.getElementById('lhsig_mode_' + m);
+    if(tab) tab.classList.toggle('active', m === mode);
+    if(box) box.style.display = (m === mode ? 'block' : 'none');
+  });
+
+  if(mode === 'draw'){
+    initLhSigPad();
+  } else if(mode === 'type'){
+    window.__lhCustomSigImg = null;
+    renderLetterheadCanvas();
+  }
+}
+
+function initLhSigPad(){
+  const pad = document.getElementById('lh_sigpad');
+  if(!pad || pad.dataset.wired) return;
+  pad.dataset.wired = '1';
+  const ctx = pad.getContext('2d');
+  let drawing = false;
+  let last = null;
+
+  function getCoords(e){
+    const r = pad.getBoundingClientRect();
+    const cx = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
+    const cy = (e.touches && e.touches[0]) ? e.touches[0].clientY : e.clientY;
+    return {
+      x: (cx - r.left) * (pad.width / r.width),
+      y: (cy - r.top) * (pad.height / r.height)
+    };
+  }
+
+  function start(e){
+    drawing = true;
+    last = getCoords(e);
+    if(e.cancelable) e.preventDefault();
+  }
+  function move(e){
+    if(!drawing) return;
+    const p = getCoords(e);
+    ctx.strokeStyle = '#1B4B8C'; // Authentic Blue Ink
+    ctx.lineWidth = 3;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.beginPath();
+    ctx.moveTo(last.x, last.y);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+    last = p;
+    if(e.cancelable) e.preventDefault();
+  }
+  function end(){ drawing = false; }
+
+  pad.addEventListener('mousedown', start);
+  pad.addEventListener('mousemove', move);
+  window.addEventListener('mouseup', end);
+
+  pad.addEventListener('touchstart', start, { passive: false });
+  pad.addEventListener('touchmove', move, { passive: false });
+  pad.addEventListener('touchend', end);
+}
+
+function clearLhSigPad(){
+  const pad = document.getElementById('lh_sigpad');
+  if(!pad) return;
+  pad.getContext('2d').clearRect(0, 0, pad.width, pad.height);
+}
+
+function applyLhDrawnSig(){
+  const pad = document.getElementById('lh_sigpad');
+  if(!pad) return;
+  const dataUrl = pad.toDataURL('image/png');
+  const img = new Image();
+  img.onload = function(){
+    window.__lhCustomSigImg = img;
+    document.getElementById('lh_show_sign').checked = true;
+    renderLetterheadCanvas();
+    showToast('✓ Drawn signature applied to letterhead in blue ink');
+  };
+  img.src = dataUrl;
+}
+
+function loadLhCustomSig(evt){
+  const file = evt.target.files && evt.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const img = new Image();
+    img.onload = function(){
+      window.__lhCustomSigImg = img;
+      document.getElementById('lh_show_sign').checked = true;
+      renderLetterheadCanvas();
+      showToast('✓ Custom signature image applied');
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+// BOLD & FORMATTING HELPERS
+function boldSelectedLetterText(){
+  const textarea = document.getElementById('lh_editor_text');
+  if(!textarea) return;
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+  const val = textarea.value;
+
+  if(start !== end){
+    const selected = val.substring(start, end);
+    textarea.value = val.substring(0, start) + '**' + selected + '**' + val.substring(end);
+    textarea.selectionStart = start;
+    textarea.selectionEnd = end + 4;
+  } else {
+    textarea.value = val.substring(0, start) + '**Important Point**' + val.substring(end);
+  }
+  renderLetterheadCanvas();
+}
+
+function insertBulletLetterText(){
+  const textarea = document.getElementById('lh_editor_text');
+  if(!textarea) return;
+  const start = textarea.selectionStart;
+  const val = textarea.value;
+  textarea.value = val.substring(0, start) + '\n• ' + val.substring(start);
+  renderLetterheadCanvas();
+}
+
+function insertUnderlineLetterText(){
+  const textarea = document.getElementById('lh_editor_text');
+  if(!textarea) return;
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+  const val = textarea.value;
+  if(start !== end){
+    const selected = val.substring(start, end);
+    textarea.value = val.substring(0, start) + '<u>' + selected + '</u>' + val.substring(end);
+  }
+  renderLetterheadCanvas();
+}
+
 function loadLetterheadRecipient(key){
   const recips = {
-    dean_gmch: 'The Dean, Government Medical College & Hospital (GMCH),\\nChhatrapati Sambhajinagar, Maharashtra.',
-    civil_surgeon: 'The Civil Surgeon / District Health Officer (DHO),\\nDistrict Civil Hospital, Chhatrapati Sambhajinagar.',
-    dho_zp: 'The District Health Officer (DHO),\\nHealth Department, Zilla Parishad, Chhatrapati Sambhajinagar.',
-    medical_supdt: 'The Medical Superintendent & Purchase Committee,\\nGeneral Civil Hospital, Jalna / Beed / Dhule.',
-    purchase_head: 'The Materials Manager & Purchase Committee Head,\\nUnited CIIGMA Hospital / Apex Hospital, Chhatrapati Sambhajinagar.',
-    amc_comm: 'The Municipal Commissioner,\\nChhatrapati Sambhajinagar Municipal Corporation (AMC).'
+    dean_gmch: 'The Dean, Government Medical College & Hospital (GMCH),\nChhatrapati Sambhajinagar, Maharashtra.',
+    civil_surgeon: 'The Civil Surgeon / District Health Officer (DHO),\nDistrict Civil Hospital, Chhatrapati Sambhajinagar.',
+    dho_zp: 'The District Health Officer (DHO),\nHealth Department, Zilla Parishad, Chhatrapati Sambhajinagar.',
+    medical_supdt: 'The Medical Superintendent & Purchase Committee,\nGeneral Civil Hospital, Jalna / Beed / Dhule.',
+    purchase_head: 'The Materials Manager & Purchase Committee Head,\nUnited CIIGMA Hospital / Apex Hospital, Chhatrapati Sambhajinagar.',
+    amc_comm: 'The Municipal Commissioner,\nChhatrapati Sambhajinagar Municipal Corporation (AMC).'
   };
   const val = recips[key];
   if(val){
-    document.getElementById('lh_recipient').value = val.replace(/\\n/g, '\n');
+    document.getElementById('lh_recipient').value = val.replace('\\n', '\n');
     runLetterheadDraft();
   }
 }
@@ -16371,191 +16597,298 @@ function runLetterheadDraft(){
   let letterText = '';
 
   if(lang === 'marathi'){
-    letterText = `जावक क्र.: ${refNo}\nदिनांक: ${dateStr}\n\nप्रति,\n${recip}\n\nविषय: ${subj}\nसंदर्भ: आपले पत्र क्र. / खरेदी समिती चर्चा.\n\nमहोदय / महोदया,\n\nसविनय सादर करण्यात येते की, ऑपटिमल सर्जिकल्स अँड मेडी कॉर्पोरेशन, छत्रपती संभाजीनगर ही संस्था गेली १५ वर्षांहून अधिक काळ मराठवाडा व संपूर्ण महाराष्ट्रातील शासकीय व खाजगी रुग्णालयांना अत्याधुनिक वैद्यकीय उपकरणे, आयसीयू बेड, ऑपरेशन थिएटर साहित्य व सर्जिकल साहित्याचा अधिकृत पुरवठा करत आहे.\n\nआपल्या रुग्णालयातील गरजेनुसार, आम्ही उच्च दर्जाच्या व प्रमाणित (CDSCO, ISO 13485 व CE मानांकित) उपकरणांचे अधिकृत दरपत्रक व तांत्रिक तपशील या पत्रासोबत सादर करीत आहोत. सदर उपकरणांची वैशिष्ट्ये खालीलप्रमाणे आहेत:\n\n• प्रत्यक्ष उत्पादक थेट घाऊक दर (Direct Factory Wholesale Rates).\n• २४ महिने वॉरंटी व छत्रपती संभाजीनगर येथून स्थानिक तंत्रज्ञांची २४ तास तत्पर सेवा.\n• तात्काळ स्थानिक गोदामातून पुरवठा व मोफत इन्स्टॉलेशन.\n${customNotes ? `• विशेष नोंद: ${customNotes}\n` : ''}\nतरी आपल्या स्तरावरून सदर प्रस्तावाचा सकारात्मक विचार करून लवकरात लवकर खरेदी आदेश (Purchase Order) देण्याची कृपा करावी ही नम्र विनंती.\n\nकळावे,\nआपला नम्र,\n\nऑपटिमल सर्जिकल्स अँड मेडी कॉर्पोरेशन करिता,\n\n(एस. एस. रिझवी)\nप्रोप्रायटर (B.E., M.E., PGDSCM Symbiosis)\nमोबाईल: +91 7972444631 | www.optimalmarts.com\nछत्रपती संभाजीनगर, महाराष्ट्र.`;
+    letterText = `जावक क्र.: ${refNo}\n\nप्रति,\n${recip}\n\nविषय: **${subj}**\nसंदर्भ: आपले पत्र क्र. / खरेदी समिती चर्चा.\n\nमहोदय / महोदया,\n\nसविनय सादर करण्यात येते की, **ऑपटिमल सर्जिकल्स अँड मेडी कॉर्पोरेशन, छत्रपती संभाजीनगर** ही संस्था गेली १५ वर्षांहून अधिक काळ मराठवाडा व संपूर्ण महाराष्ट्रातील शासकीय व खाजगी रुग्णालयांना अत्याधुनिक वैद्यकीय उपकरणे, आयसीयू बेड, ऑपरेशन थिएटर साहित्य व सर्जिकल साहित्याचा अधिकृत पुरवठा करत आहे.\n\nआपल्या रुग्णालयातील गरजेनुसार, आम्ही उच्च दर्जाच्या व प्रमाणित (**CDSCO, ISO 13485 व CE मानांकित**) उपकरणांचे अधिकृत दरपत्रक व तांत्रिक तपशील या पत्रासोबत सादर करीत आहोत. सदर उपकरणांची वैशिष्ट्ये खालीलप्रमाणे आहेत:\n\n• **प्रत्यक्ष उत्पादक थेट घाऊक दर** (Direct Factory Wholesale Rates).\n• **२४ महिने वॉरंटी** व छत्रपती संभाजीनगर येथून स्थानिक तंत्रज्ञांची २४ तास तत्पर सेवा.\n• **तात्काळ स्थानिक गोदामातून पुरवठा** व मोफत इन्स्टॉलेशन.\n${customNotes ? `• **विशेष नोंद:** ${customNotes}\n` : ''}\nतरी आपल्या स्तरावरून सदर प्रस्तावाचा सकारात्मक विचार करून लवकरात लवकर खरेदी आदेश (**Purchase Order**) देण्याची कृपा करावी ही नम्र विनंती.\n\nकळावे,\nआपला नम्र,\n\n**ऑपटिमल सर्जिकल्स अँड मेडी कॉर्पोरेशन करिता,**\n\n(एस. एस. रिझवी)\nप्रोप्रायटर (B.E., M.E., PGDSCM Symbiosis)\nमोबाईल: +91 7972444631 | www.optimalmarts.com\nछत्रपती संभाजीनगर, महाराष्ट्र.`;
   } else if(lang === 'hindi'){
-    letterText = `पत्रांक: ${refNo}\nदिनांक: ${dateStr}\n\nसेवा में,\n${recip}\n\nविषय: ${subj}\nसंदर्भ: संस्थागत चिकित्सा आवश्यकता एवं चर्चा अनुसार।\n\nमहोदय / महोदया,\n\nसादर निवेदन है कि ऑप्टिमल सर्जिकल्स एंड मेडी कॉर्पोरेशन विगत १५ वर्षों से महाराष्ट्र के प्रमुख शासकीय एवं निजी चिकित्सालयों को उच्चस्तरीय चिकित्सा उपकरण, अस्पताल फर्नीचर, आईसीयू मॉनिटर्स एवं सर्जिकल सामग्री की आपूर्ति सफलतापूर्वक कर रही है।\n\nआपके संस्थान की आवश्यकतानुसार, हम उच्चतम गुणवत्ता मानकों (CDSCO, ISO 13485 एवं CE प्रमाणित) वाले उपकरणों का तकनीकी विवरण एवं न्यूनतम संस्थागत दरपत्रक प्रस्तुत कर रहे हैं:\n\n• प्रत्यक्ष निर्माता थोक मूल्य (Direct OEM Wholesale Pricing).\n• २४ माह की संपूर्ण वारंटी एवं छत्रपती संभाजीनगर से स्थानीय इंजीनियर सहायता।\n• अस्पताल में तत्काल डिलीवरी एवं निःशुल्क संस्थापन (Installation)।\n${customNotes ? `• विशेष बिंदु: ${customNotes}\n` : ''}\nअतः आपसे सादर अनुरोध है कि हमारे इस प्रस्ताव पर विचार करते हुए शीघ्र क्रयादेश (Purchase Order) प्रदान करने की कृपा करें।\n\nभवदीय,\nकृते ऑप्टिमल सर्जिकल्स एंड मेडी कॉर्पोरेशन,\n\n(एस. एस. रिज़वी)\nप्रोप्राइटर (B.E., M.E., PGDSCM Symbiosis)\nमोबाइल: +91 7972444631 | www.optimalmarts.com\nछत्रपती संभाजीनगर, महाराष्ट्र।`;
+    letterText = `पत्रांक: ${refNo}\n\nसेवा में,\n${recip}\n\nविषय: **${subj}**\nसंदर्भ: संस्थागत चिकित्सा आवश्यकता एवं चर्चा अनुसार।\n\nमहोदय / महोदया,\n\nसादर निवेदन है कि **ऑप्टिमल सर्जिकल्स एंड मेडी कॉर्पोरेशन** विगत १५ वर्षों से महाराष्ट्र के प्रमुख शासकीय एवं निजी चिकित्सालयों को उच्चस्तरीय चिकित्सा उपकरण, अस्पताल फर्नीचर, आईसीयू मॉनिटर्स एवं सर्जिकल सामग्री की आपूर्ति सफलतापूर्वक कर रही है।\n\nआपके संस्थान की आवश्यकतानुसार, हम उच्चतम गुणवत्ता मानकों (**CDSCO, ISO 13485 एवं CE प्रमाणित**) वाले उपकरणों का तकनीकी विवरण एवं न्यूनतम संस्थागत दरपत्रक प्रस्तुत कर रहे हैं:\n\n• **प्रत्यक्ष निर्माता थोक मूल्य** (Direct OEM Wholesale Pricing).\n• **२४ माह की संपूर्ण वारंटी** एवं छत्रपती संभाजीनगर से स्थानीय इंजीनियर सहायता।\n• **अस्पताल में तत्काल डिलीवरी** एवं निःशुल्क संस्थापन (Installation)।\n${customNotes ? `• **विशेष बिंदु:** ${customNotes}\n` : ''}\nअतः आपसे सादर अनुरोध है कि हमारे इस प्रस्ताव पर विचार करते हुए शीघ्र क्रयादेश (**Purchase Order**) प्रदान करने की कृपा करें।\n\nभवदीय,\n**कृते ऑप्टिमल सर्जिकल्स एंड मेडी कॉर्पोरेशन,**\n\n(एस. एस. रिज़वी)\nप्रोप्राइटर (B.E., M.E., PGDSCM Symbiosis)\nमोबाइल: +91 7972444631 | www.optimalmarts.com\nछत्रपती संभाजीनगर, महाराष्ट्र।`;
   } else {
     // English
-    letterText = `Ref No: ${refNo}\nDate: ${dateStr}\n\nTo,\n${recip}\n\nSubject: ${subj}\nReference: Institutional Healthcare Requirement / Hospital Procurement Inquiry.\n\nRespected Sir / Madam,\n\nGreetings from Optimal Surgicals & Medi Corporation, Chhatrapati Sambhajinagar.\n\nFor over 15 years, our enterprise has had the privilege of supporting medical colleges, civil hospitals, and premier multispeciality health institutions across Maharashtra with hospital furniture, critical-care ICU equipment, and surgical supplies.\n\nWith reference to your clinical facility requirements, we formally submit our institutional proposal and technical compliance specifications for your esteemed evaluation:\n\n• Direct OEM Factory Wholesale Pricing with full GST Input Tax Credit compliance.\n• Comprehensive 24-Month Certified Replacement Warranty backed by local resident biomedical engineers in Chhatrapati Sambhajinagar with a 2-hour emergency response SLA.\n• 100% CDSCO Medical Device Rules 2017, ISO 13485, and European CE regulatory certifications.\n${customNotes ? `• Specific Terms: ${customNotes}\n` : ''}\nWe remain committed to equipping your facility with dependable technology at the lowest landed cost. We request your favorable approval and release of the formal Purchase Order.\n\nThanking you,\nYours faithfully,\n\nFor OPTIMAL SURGICALS & MEDI CORPORATION,\n\nS.S. Razvi (B.E., M.E., PGDSCM Symbiosis)\nProprietor | Mobile: +91 7972444631\nwww.optimalmarts.com\nChhatrapati Sambhajinagar, Maharashtra, India.`;
+    letterText = `Ref No: ${refNo}\n\nTo,\n${recip}\n\nSubject: **${subj}**\nReference: Institutional Healthcare Requirement / Hospital Procurement Inquiry.\n\nRespected Sir / Madam,\n\nGreetings from **Optimal Surgicals & Medi Corporation**, Chhatrapati Sambhajinagar.\n\nFor over 15 years, our enterprise has had the privilege of supporting medical colleges, civil hospitals, and premier multispeciality health institutions across Maharashtra with hospital furniture, critical-care ICU equipment, and surgical supplies.\n\nWith reference to your clinical facility requirements, we formally submit our institutional proposal and technical compliance specifications for your esteemed evaluation:\n\n• **Direct OEM Factory Wholesale Pricing** with full GST Input Tax Credit compliance.\n• **Comprehensive 24-Month Certified Replacement Warranty** backed by local resident biomedical engineers in Chhatrapati Sambhajinagar with a 2-hour emergency response SLA.\n• **100% CDSCO Medical Device Rules 2017, ISO 13485, and European CE** regulatory certifications.\n${customNotes ? `• **Specific Terms:** ${customNotes}\n` : ''}\nWe remain committed to equipping your facility with dependable technology at the lowest landed cost. We request your favorable approval and release of the formal Purchase Order.\n\nThanking you,\nYours faithfully,\n\n**For OPTIMAL SURGICALS & MEDI CORPORATION,**\n\nS.S. Razvi (B.E., M.E., PGDSCM Symbiosis)\nProprietor | Mobile: +91 7972444631\nwww.optimalmarts.com\nChhatrapati Sambhajinagar, Maharashtra, India.`;
   }
 
   editor.value = letterText;
-  updateLetterheadPreview();
-  showToast('✓ Formal letter drafted on executive letterhead');
+  renderLetterheadCanvas();
+  showToast('✓ Letter drafted — Canvas preview updated');
 }
 
 function updateLetterheadPreview(){
-  const container = document.getElementById('lh_document_preview');
-  if(!container) return;
-
-  const theme = document.getElementById('lh_theme_style')?.value || 'emerald_gold';
-  const padType = document.getElementById('lh_pad_type')?.value || 'builtin';
-
-  const compName = (document.getElementById('lh_comp_name')?.value || 'OPTIMAL SURGICALS & MEDI CORPORATION').trim();
-  const propName = (document.getElementById('lh_prop_name')?.value || 'S.S. Razvi (B.E., M.E., PGDSCM Symbiosis)').trim();
-  const compAddr = (document.getElementById('lh_comp_addr')?.value || 'Chhatrapati Sambhajinagar (Aurangabad), Maharashtra').trim();
-  const compPhone = (document.getElementById('lh_comp_phone')?.value || '+91 7972444631 · www.optimalmarts.com').trim();
-
-  const rawText = document.getElementById('lh_editor_text')?.value || '';
-  const showStamp = document.getElementById('lh_show_stamp')?.checked;
-  const showSign = document.getElementById('lh_show_sign')?.checked;
-  const showDate = document.getElementById('lh_show_date')?.checked;
-  const dateStr = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' });
-
-  const paragraphs = rawText.split('\n');
-  let bodyHtml = '';
-  paragraphs.forEach(p => {
-    const trimmed = p.trim();
-    if(!trimmed){
-      bodyHtml += '<div style="height:10px;"></div>';
-    } else if(trimmed.startsWith('•') || trimmed.startsWith('-') || /^[१-९1-9]\./.test(trimmed)){
-      bodyHtml += `<div style="padding-left:14px;margin-bottom:4px;line-height:1.55;"><strong>${esc(trimmed)}</strong></div>`;
-    } else if(trimmed.startsWith('Subject:') || trimmed.startsWith('विषय:') || trimmed.startsWith('Ref No:') || trimmed.startsWith('जावक क्र.:') || trimmed.startsWith('पत्रांक:')){
-      bodyHtml += `<div style="font-weight:700;text-decoration:underline;margin:8px 0;color:#0F6E5C;">${esc(trimmed)}</div>`;
-    } else {
-      bodyHtml += `<div style="margin-bottom:8px;line-height:1.6;text-align:justify;">${esc(trimmed)}</div>`;
-    }
-  });
-
-  const stampSvg = showStamp ? `
-    <div style="display:inline-block;width:115px;height:115px;border:3px double #1B4B8C;border-radius:50%;padding:4px;text-align:center;box-sizing:border-box;color:#1B4B8C;font-family:'IBM Plex Mono',monospace;transform:rotate(-3deg);margin:0 4px;flex-shrink:0;">
-      <div style="border:1px solid #1B4B8C;border-radius:50%;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:2px;box-sizing:border-box;">
-        <div style="font-size:7.5px;font-weight:700;line-height:1.1;letter-spacing:0.5px;">OPTIMAL SURGICALS</div>
-        <div style="font-size:6.5px;font-weight:700;">★ MEDI CORP ★</div>
-        <div style="font-size:6px;border-top:1px solid #1B4B8C;border-bottom:1px solid #1B4B8C;margin:2px 0;padding:1px 3px;font-weight:700;">PROP. S.S. RAZVI</div>
-        <div style="font-size:6.5px;font-weight:700;">CHHATRAPATI</div>
-        <div style="font-size:6.5px;font-weight:700;">SAMBHAJINAGAR</div>
-      </div>
-    </div>
-  ` : '';
-
-  const signSvg = showSign ? `
-    <div style="display:inline-block;text-align:center;vertical-align:bottom;margin-right:8px;flex-shrink:0;">
-      <div style="font-family:'Caveat',cursive;font-size:36px;color:#1B4B8C;line-height:0.9;font-weight:700;">S. S. Razvi</div>
-      <div style="width:110px;height:2px;background:#1B4B8C;margin:2px auto 0;"></div>
-    </div>
-  ` : '';
-
-  let headerHtml = '';
-  let footerHtml = '';
-  let docBorder = '2px solid #0F6E5C';
-
-  if(theme === 'maharashtra_admin'){
-    docBorder = '2px solid #334155';
-    headerHtml = `
-      <div style="border-bottom:2.5px solid #1E293B;padding-bottom:10px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;">
-        <div style="flex:1 1 220px;min-width:200px;">
-          <div style="font-size:16px;font-weight:800;color:#0F172A;font-family:Arial,sans-serif;">ऑपटिमल सर्जिकल्स अँड मेडी कॉर्पोरेशन</div>
-          <div style="font-size:14px;font-weight:700;color:#1E293B;margin-top:2px;">OPTIMAL SURGICALS &amp; MEDI CORPORATION</div>
-          <div style="font-size:11px;color:#475569;margin-top:2px;">शासकीय व खाजगी रुग्णालये, वैद्यकीय महाविद्यालये अधिकृत पुरवठादार</div>
-          <div style="font-size:10.5px;color:#334155;margin-top:1px;">${esc(compAddr)} · दूरध्वनी: ${esc(compPhone)}</div>
-          <div style="font-size:10.5px;color:#0F172A;font-weight:700;margin-top:2px;">संचालक: ${esc(propName)}</div>
-        </div>
-        <div style="text-align:right;white-space:nowrap;flex-shrink:0;">
-          <span style="font-size:11px;font-weight:bold;background:#F1F5F9;border:1px solid #CBD5E1;color:#0F172A;padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:4px;">प्रशासकीय पत्राचार</span>
-          <div style="font-size:10px;color:#64748B;">महाराष्ट्र शासन नोंदणीकृत</div>
-          <div style="font-size:10px;color:#64748B;">GSTIN: 27AAAAA0000A1Z5</div>
-        </div>
-      </div>
-    `;
-    footerHtml = `
-      <div style="border-top:1.5px solid #CBD5E1;padding-top:8px;margin-top:18px;font-size:10px;color:#64748B;text-align:center;">
-        कार्यालय: ${esc(compAddr)} · सर्व न्यायालयीन वाद छत्रपती संभाजीनगर कार्यक्षेत्रांतर्गत राहील.
-      </div>
-    `;
-  } else if(theme === 'royal_navy'){
-    docBorder = '2px solid #1B365D';
-    headerHtml = `
-      <div style="border-bottom:2px solid #1B365D;padding-bottom:10px;margin-bottom:14px;text-align:center;">
-        <div style="font-size:10px;letter-spacing:2px;font-weight:700;color:#B8860B;text-transform:uppercase;margin-bottom:3px;">Certified Healthcare &amp; Surgical Supply Partner</div>
-        <h2 style="margin:0;font-size:20px;color:#1B365D;font-family:'Playfair Display',Georgia,serif;font-weight:800;letter-spacing:0.5px;">${esc(compName)}</h2>
-        <div style="font-size:11.5px;color:#4B5563;margin-top:3px;font-family:Georgia,serif;">Hospital Furniture · Critical Care ICU Tech · X-Ray Accessories · Surgical Disposables</div>
-        <div style="font-size:10.5px;color:#6B7280;margin-top:2px;">${esc(compAddr)} · Tel: ${esc(compPhone)}</div>
-        <div style="font-size:11px;color:#111827;font-weight:bold;margin-top:2px;">Proprietor: ${esc(propName)}</div>
-        <div style="width:80px;height:2px;background:#B8860B;margin:6px auto 0;"></div>
-      </div>
-    `;
-    footerHtml = `
-      <div style="border-top:1px solid #CBD5E1;padding-top:8px;margin-top:18px;font-size:10px;color:#6B7280;text-align:center;">
-        ${esc(compName)} · Certified ISO 13485 &amp; CDSCO Registered Institutional Supply Partner
-      </div>
-    `;
-  } else if(theme === 'modern_minimal'){
-    docBorder = '1px solid #E2E8F0';
-    headerHtml = `
-      <div style="border-left:5px solid #0D9488;padding-left:12px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;">
-        <div style="flex:1 1 220px;min-width:200px;">
-          <h2 style="margin:0;font-size:18px;color:#0F172A;font-family:Arial,sans-serif;font-weight:800;">${esc(compName)}</h2>
-          <div style="font-size:11.5px;color:#0D9488;font-weight:600;margin-top:2px;">SURGICAL &amp; HOSPITAL INFRASTRUCTURE</div>
-          <div style="font-size:10.5px;color:#64748B;margin-top:2px;">${esc(compAddr)} · ${esc(compPhone)}</div>
-          <div style="font-size:10.5px;color:#1E293B;font-weight:bold;margin-top:2px;">Prop: ${esc(propName)}</div>
-        </div>
-        <div style="text-align:right;white-space:nowrap;flex-shrink:0;">
-          <div style="font-size:10px;font-weight:bold;color:#0D9488;">MEDICAL SUPPLY SLA</div>
-          <div style="font-size:10px;color:#64748B;">Date: ${dateStr}</div>
-        </div>
-      </div>
-      <div style="height:1px;background:#E2E8F0;margin-bottom:14px;"></div>
-    `;
-    footerHtml = `
-      <div style="border-top:1px solid #E2E8F0;padding-top:8px;margin-top:18px;font-size:10px;color:#94A3B8;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-        <span>${esc(compName)}</span>
-        <span>Chhatrapati Sambhajinagar, Maharashtra</span>
-      </div>
-    `;
-  } else {
-    // Default: Emerald & Gold
-    docBorder = '2px solid #0F6E5C';
-    headerHtml = `
-      <div style="border-bottom:2.5px solid #0F6E5C;padding-bottom:10px;margin-bottom:14px;">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;">
-          <div style="display:flex;gap:10px;align-items:flex-start;flex:1 1 220px;min-width:200px;">
-            <div style="width:40px;height:40px;background:#0F6E5C;border-radius:50%;color:#fff;font-size:24px;font-weight:bold;display:flex;align-items:center;justify-content:center;flex-shrink:0;">✚</div>
-            <div>
-              <h2 style="margin:0;font-size:18px;color:#0F6E5C;font-family:Arial,sans-serif;font-weight:800;letter-spacing:0.3px;">${esc(compName)}</h2>
-              <div style="font-size:11px;color:#333;margin-top:2px;font-weight:600;">HOSPITAL FURNITURE · CRITICAL CARE ICU · X-RAY ACCESSORIES · SURGICAL DISPOSABLES</div>
-              <div style="font-size:10.5px;color:#555;margin-top:1px;">${esc(compAddr)} · Tel: ${esc(compPhone)}</div>
-              <div style="font-size:10.5px;color:#111;font-weight:bold;margin-top:2px;">Proprietor: ${esc(propName)}</div>
-            </div>
-          </div>
-          <div style="text-align:right;white-space:nowrap;flex-shrink:0;">
-            <span style="font-size:11px;font-weight:bold;background:#E6F2ED;color:#084C3E;border:1px solid #0F6E5C;padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:4px;">OFFICIAL LETTERHEAD</span>
-            <div style="font-size:10px;color:#666;">Serving 15+ Years</div>
-            <div style="font-size:10px;color:#666;">GSTIN: 27AAAAA0000A1Z5</div>
-          </div>
-        </div>
-        <div style="height:2px;background:#B8860B;margin-top:8px;"></div>
-      </div>
-    `;
-    footerHtml = `
-      <div style="border-top:1.5px solid #E5E7EB;padding-top:8px;margin-top:18px;font-size:10px;color:#6B7280;text-align:center;">
-        ${esc(compName)} · Serving Healthcare Institutions for Over 15 Years · Chhatrapati Sambhajinagar Jurisdiction
-      </div>
-    `;
-  }
-
-  container.innerHTML = `
-    <div id="lh_printable_letter_doc" style="border:${docBorder};border-radius:6px;padding:16px;background:#fff;color:#111;font-family:Arial,Helvetica,sans-serif;font-size:12.5px;line-height:1.6;position:relative;box-sizing:border-box;">
-      ${headerHtml}
-      <div style="min-height:300px;">
-        ${bodyHtml}
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:20px;border-top:1px dashed #E2E8F0;padding-top:12px;flex-wrap:wrap;gap:12px;">
-        <div style="flex:1 1 160px;min-width:140px;white-space:nowrap;">
-          ${showDate ? `<div style="font-size:11px;font-weight:700;color:#1B4B8C;">DATE: ${dateStr}</div>` : ''}
-          <div style="font-size:10px;color:#64748B;margin-top:2px;">Verification Seal Affixed · Official Communication</div>
-        </div>
-        <div style="display:flex;align-items:flex-end;flex-shrink:0;gap:8px;">
-          ${signSvg}
-          ${stampSvg}
-        </div>
-      </div>
-      ${footerHtml}
-    </div>
-  `;
-
   renderLetterheadCanvas();
 }
+
+function renderLetterheadCanvas(){
+  const canvas = document.getElementById('lh_canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  // Standard A4 Ratio at 150 DPI
+  canvas.width = 1240;
+  canvas.height = 1754;
+
+  const padType = document.getElementById('lh_pad_type')?.value || 'builtin';
+  const theme = document.getElementById('lh_theme_style')?.value || 'emerald_gold';
+
+  // 1. Draw Background
+  if(padType === 'upload' && window.__lhCustomPadImg){
+    ctx.drawImage(window.__lhCustomPadImg, 0, 0, canvas.width, canvas.height);
+  } else {
+    // Clean A4 White Sheet
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Border
+    let primaryColor = '#0F6E5C';
+    let secondaryColor = '#B8860B';
+    if(theme === 'maharashtra_admin'){ primaryColor = '#1E293B'; secondaryColor = '#475569'; }
+    else if(theme === 'royal_navy'){ primaryColor = '#1B365D'; secondaryColor = '#B8860B'; }
+    else if(theme === 'modern_minimal'){ primaryColor = '#0D9488'; secondaryColor = '#64748B'; }
+
+    ctx.strokeStyle = primaryColor;
+    ctx.lineWidth = 3;
+    ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
+
+    ctx.fillStyle = primaryColor;
+    ctx.fillRect(38, 38, canvas.width - 76, 7);
+
+    // Company Details
+    const compName = (document.getElementById('lh_comp_name')?.value || 'OPTIMAL SURGICALS & MEDI CORPORATION').trim();
+    const propName = (document.getElementById('lh_prop_name')?.value || 'S.S. Razvi (B.E., M.E., PGDSCM Symbiosis)').trim();
+    const compAddr = (document.getElementById('lh_comp_addr')?.value || 'Chhatrapati Sambhajinagar (Aurangabad), Maharashtra').trim();
+    const compPhone = (document.getElementById('lh_comp_phone')?.value || '+91 7972444631 · www.optimalmarts.com').trim();
+
+    // Medical Logo Crest
+    ctx.fillStyle = primaryColor;
+    ctx.beginPath();
+    ctx.arc(95, 105, 32, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 30px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('✚', 95, 105);
+
+    // Company Title
+    ctx.fillStyle = primaryColor;
+    ctx.font = 'bold 28px Arial, Helvetica, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(compName, 145, 90);
+
+    // Subtitle Line
+    ctx.fillStyle = '#374151';
+    ctx.font = 'bold 12px Arial, sans-serif';
+    ctx.fillText('HOSPITAL FURNITURE · CRITICAL CARE ICU · X-RAY ACCESSORIES · SURGICAL DISPOSABLES', 145, 114);
+
+    // Address & Credentials
+    ctx.fillStyle = '#4B5563';
+    ctx.font = '11.5px Arial, sans-serif';
+    ctx.fillText(`${compAddr} · Tel: ${compPhone} · GSTIN: 27AAAAA0000A1Z5`, 145, 134);
+    ctx.fillStyle = '#111827';
+    ctx.font = 'bold 12px Arial, sans-serif';
+    ctx.fillText(`Proprietor: ${propName}`, 145, 152);
+
+    // Dividing Gold/Secondary Line
+    ctx.strokeStyle = secondaryColor;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(38, 172);
+    ctx.lineTo(canvas.width - 38, 172);
+    ctx.stroke();
+
+    // Center Watermark
+    ctx.save();
+    ctx.globalAlpha = 0.035;
+    ctx.fillStyle = primaryColor;
+    ctx.beginPath();
+    ctx.arc(canvas.width / 2, canvas.height / 2, 220, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = primaryColor;
+    ctx.font = 'bold 240px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('✚', canvas.width / 2, canvas.height / 2);
+    ctx.restore();
+
+    // Footer
+    ctx.strokeStyle = '#E2E8F0';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(38, canvas.height - 68);
+    ctx.lineTo(canvas.width - 38, canvas.height - 68);
+    ctx.stroke();
+
+    ctx.fillStyle = '#64748B';
+    ctx.font = '10.5px Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(`${compName} · Serving Healthcare Institutions for Over 15 Years · Chhatrapati Sambhajinagar Jurisdiction`, canvas.width / 2, canvas.height - 48);
+    ctx.fillText('All institutional contracts subject to Chhatrapati Sambhajinagar jurisdiction · ISO 13485 & CDSCO Certified Supply Partner', canvas.width / 2, canvas.height - 34);
+  }
+
+  // 2. Date Position Rendering
+  const showDate = document.getElementById('lh_show_date')?.checked;
+  const datePos = document.getElementById('lh_date_pos')?.value || 'top_right';
+  const dateStr = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' });
+
+  if(showDate){
+    ctx.fillStyle = '#1B4B8C';
+    ctx.font = 'bold 13px "IBM Plex Mono", Arial, sans-serif';
+    if(datePos === 'top_right'){
+      ctx.textAlign = 'right';
+      ctx.fillText(`दिनांक / Date: ${dateStr}`, canvas.width - 70, (padType === 'upload' ? 240 : 196));
+    } else if(datePos === 'top_left'){
+      ctx.textAlign = 'left';
+      ctx.fillText(`दिनांक / Date: ${dateStr}`, 70, (padType === 'upload' ? 240 : 196));
+    } else if(datePos === 'bottom_left'){
+      ctx.textAlign = 'left';
+      ctx.fillText(`दिनांक / Date: ${dateStr}`, 70, canvas.height - 240);
+    } else if(datePos === 'bottom_right'){
+      ctx.textAlign = 'right';
+      ctx.fillText(`दिनांक / Date: ${dateStr}`, canvas.width - 70, canvas.height - 340);
+    }
+  }
+
+  // 3. Draw Letter Text with Bold Markdown Parsing (**bold**)
+  const rawText = document.getElementById('lh_editor_text')?.value || '';
+  if(rawText){
+    const startY = (padType === 'upload' ? 270 : 215);
+    const startX = 70;
+    const maxW = canvas.width - 140;
+    const lineH = 25;
+    let curY = startY;
+
+    const paragraphs = rawText.split('\n');
+    paragraphs.forEach(p => {
+      const trimmed = p.trim();
+      if(!trimmed){
+        curY += 12;
+        return;
+      }
+
+      // Split line into bold/regular tokens based on **
+      const parts = p.split('**');
+      // Build word segments with bold flag
+      const segments = [];
+      for(let i=0; i<parts.length; i++){
+        if(!parts[i]) continue;
+        const isBold = (i % 2 === 1);
+        const words = parts[i].split(' ');
+        words.forEach((w, wIdx) => {
+          if(!w && wIdx > 0) return;
+          segments.push({ word: w, bold: isBold });
+        });
+      }
+
+      // Wrap segments line by line
+      let curLine = [];
+      let curLineW = 0;
+
+      segments.forEach(seg => {
+        ctx.font = seg.bold ? 'bold 15.5px Arial, sans-serif' : '15.5px Arial, sans-serif';
+        const wordW = ctx.measureText(seg.word + ' ').width;
+
+        if(curLineW + wordW > maxW && curLine.length > 0){
+          // Render current line
+          let drawX = startX;
+          curLine.forEach(item => {
+            ctx.font = item.bold ? 'bold 15.5px Arial, sans-serif' : '15.5px Arial, sans-serif';
+            ctx.fillStyle = item.bold ? '#000000' : '#111827';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'top';
+            ctx.fillText(item.word + ' ', drawX, curY);
+            drawX += ctx.measureText(item.word + ' ').width;
+          });
+          curY += lineH;
+          curLine = [seg];
+          curLineW = wordW;
+        } else {
+          curLine.push(seg);
+          curLineW += wordW;
+        }
+      });
+
+      if(curLine.length > 0){
+        let drawX = startX;
+        curLine.forEach(item => {
+          ctx.font = item.bold ? 'bold 15.5px Arial, sans-serif' : '15.5px Arial, sans-serif';
+          ctx.fillStyle = item.bold ? '#000000' : '#111827';
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'top';
+          ctx.fillText(item.word + ' ', drawX, curY);
+          drawX += ctx.measureText(item.word + ' ').width;
+        });
+        curY += lineH;
+      }
+    });
+  }
+
+  // 4. Draw Blue Ink Stamp and Blue Ink Signature (RESPECTS UNTICKING!)
+  const showStamp = document.getElementById('lh_show_stamp')?.checked;
+  const showSign = document.getElementById('lh_show_sign')?.checked;
+
+  const stampY = canvas.height - 230;
+  const stampX = canvas.width - 200;
+
+  // Blue Ink Circular Rubber Stamp
+  if(showStamp){
+    ctx.save();
+    ctx.translate(stampX, stampY);
+    ctx.rotate((-3 * Math.PI) / 180);
+
+    const R = 75;
+    const blueColor = '#1B4B8C'; // Authentic Blue Stamp Ink
+
+    ctx.strokeStyle = blueColor;
+    ctx.lineWidth = 3.2;
+    ctx.beginPath();
+    ctx.arc(0, 0, R, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.arc(0, 0, R - 6, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.font = "bold 10px 'IBM Plex Mono', monospace";
+    ctx.fillStyle = blueColor;
+    ctx.textAlign = 'center';
+    drawArcText(ctx, 'OPTIMAL SURGICALS & MEDI CORP.', 0, 0, R - 15, -Math.PI * 0.78, Math.PI * 0.78, false);
+    drawArcText(ctx, 'CHHATRAPATI SAMBHAJINAGAR', 0, 0, R - 15, Math.PI * 0.72, -Math.PI * 0.72, true);
+
+    ctx.font = "bold 11px Arial";
+    ctx.fillText('★ OFFICIAL SEAL ★', 0, -8);
+    ctx.font = "bold 9.5px monospace";
+    ctx.fillText('PROP. S.S. RAZVI', 0, 8);
+
+    ctx.restore();
+  }
+
+  // Blue Ink Signature (Drawn or Calligraphic)
+  if(showSign){
+    ctx.save();
+    const sigX = stampX - 80;
+    const sigY = stampY - 35;
+
+    if(window.__lhCustomSigImg){
+      // Drawn finger signature or custom uploaded signature
+      const sw = 140;
+      const sh = 60;
+      ctx.drawImage(window.__lhCustomSigImg, sigX - sw/2, sigY - sh/2, sw, sh);
+    } else {
+      // Calligraphic S. S. Razvi script in Blue Ink
+      ctx.font = "bold 44px 'Caveat', cursive, sans-serif";
+      ctx.fillStyle = '#1B4B8C';
+      ctx.textAlign = 'center';
+      ctx.fillText('S. S. Razvi', sigX, sigY);
+
+      // Blue ink flourish underline
+      ctx.strokeStyle = '#1B4B8C';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(sigX - 60, sigY + 8);
+      ctx.quadraticCurveTo(sigX, sigY + 22, sigX + 65, sigY + 6);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+}
+
 
 function shareLetterheadImageWhatsApp(){
   renderLetterheadCanvas();
@@ -18999,6 +19332,7 @@ function shareGrowthPlanWhatsApp(){
   try{ renderBuySmartInfo(); }catch(e){}
   try{ rotateInsight(); }catch(e){}
   try{ enhanceReports(); }catch(e){}
+  try{ filterTools(); }catch(e){}
 })();
 
 </script>
