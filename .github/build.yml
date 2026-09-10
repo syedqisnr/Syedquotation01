@@ -1,0 +1,112 @@
+name: Build and Release Android APK
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-apk:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # AUTO-HEALING STEP: Guarantees www/index.html always exists
+      - name: Ensure Web Assets in www Directory
+        run: |
+          echo "=== Verifying / Creating www Web Assets Directory ==="
+          mkdir -p www
+          if [ -f index.html ]; then
+            cp -f index.html www/index.html
+            echo "Copied root index.html to www/index.html"
+          fi
+          if [ -d public ]; then
+            cp -r public/* www/ 2>/dev/null || true
+          fi
+          if [ ! -f www/index.html ]; then
+            echo "ERROR: www/index.html could not be found!"
+            exit 1
+          fi
+          echo "www/index.html verified successfully: $(ls -lh www/index.html)"
+
+      - name: Install Dependencies
+        run: |
+          npm install || true
+
+      - name: Add Android Platform
+        run: |
+          npx cap add android || npx @capacitor/cli add android || echo "Android platform ready"
+
+      - name: Sync Web Assets into Android Project
+        run: |
+          npx cap sync android || npx @capacitor/cli sync android
+
+      # NATIVE BRIDGE INJECTION STEP: Injects AndroidBridge, FileProvider, and MediaStore Gallery Save
+      - name: Inject Native Android Bridge, Permissions & FileProvider
+        run: |
+          echo "=== INJECTING NATIVE ANDROID BRIDGE & PERMISSIONS ==="
+          mkdir -p android/app/src/main/java/com/optimalsurgicals/quotationapp/
+          if [ -f capacitor_bridge_src/MainActivity.java ]; then
+            cp -f capacitor_bridge_src/MainActivity.java android/app/src/main/java/com/optimalsurgicals/quotationapp/MainActivity.java
+            echo "Injected native AndroidBridge into MainActivity.java!"
+          fi
+          mkdir -p android/app/src/main/res/xml/
+          if [ -f capacitor_bridge_src/file_paths.xml ]; then
+            cp -f capacitor_bridge_src/file_paths.xml android/app/src/main/res/xml/file_paths.xml
+            echo "Injected FileProvider file_paths.xml!"
+          fi
+          if [ -f capacitor_bridge_src/AndroidManifest.xml ]; then
+            cp -f capacitor_bridge_src/AndroidManifest.xml android/app/src/main/AndroidManifest.xml
+            echo "Injected AndroidManifest.xml with storage permissions & FileProvider!"
+          fi
+
+      - name: Grant Execute Permission to Gradlew
+        run: |
+          if [ -f android/gradlew ]; then
+            chmod +x android/gradlew
+          fi
+
+      - name: Build Debug APK
+        run: |
+          cd android
+          ./gradlew assembleDebug --stacktrace --no-daemon
+          cd ..
+          cp android/app/build/outputs/apk/debug/app-debug.apk Optimal-Command-v11.apk
+          ls -lh Optimal-Command-v11.apk
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug
+          path: Optimal-Command-v11.apk
+          retention-days: 30
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        with:
+          tag_name: v11.0.0
+          name: "Optimal Command v11.0 Enterprise Suite"
+          body: "Direct 1-click APK download for Optimal Command Enterprise Suite v11.0 with 83 Tools: High-Resolution Photo Stamp Studio with Direct Gallery Saving, Official A4 Letterhead Writer & Stamped Document Studio with WhatsApp PDF Sharing, Healthcare Field CRM, Local Tenders Engine, and Quick Daily Calculations Hub."
+          files: Optimal-Command-v11.apk
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
