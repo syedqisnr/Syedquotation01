@@ -64,31 +64,30 @@ jobs:
           echo "=== INJECTING NATIVE ANDROID BRIDGE & PERMISSIONS ==="
           mkdir -p android/app/src/main/java/com/optimalsurgicals/quotationapp/
           mkdir -p android/app/src/main/res/xml/
+
           if [ -f MainActivity.java ]; then
             cp -f MainActivity.java android/app/src/main/java/com/optimalsurgicals/quotationapp/MainActivity.java
-            echo "Injected MainActivity.java from repo root"
+            echo "SUCCESS: Injected MainActivity.java from root!"
           elif [ -f capacitor_bridge_src/MainActivity.java ]; then
             cp -f capacitor_bridge_src/MainActivity.java android/app/src/main/java/com/optimalsurgicals/quotationapp/MainActivity.java
-            echo "Injected MainActivity.java from capacitor_bridge_src"
+            echo "SUCCESS: Injected MainActivity.java from capacitor_bridge_src!"
           fi
+
           if [ -f file_paths.xml ]; then
             cp -f file_paths.xml android/app/src/main/res/xml/file_paths.xml
-            echo "Injected file_paths.xml from repo root"
+            echo "SUCCESS: Injected file_paths.xml from root!"
           elif [ -f capacitor_bridge_src/file_paths.xml ]; then
             cp -f capacitor_bridge_src/file_paths.xml android/app/src/main/res/xml/file_paths.xml
-            echo "Injected file_paths.xml from capacitor_bridge_src"
+            echo "SUCCESS: Injected file_paths.xml from capacitor_bridge_src!"
           fi
+
           if [ -f AndroidManifest.xml ]; then
             cp -f AndroidManifest.xml android/app/src/main/AndroidManifest.xml
-            echo "Injected AndroidManifest.xml from repo root"
+            echo "SUCCESS: Injected AndroidManifest.xml from root!"
           elif [ -f capacitor_bridge_src/AndroidManifest.xml ]; then
             cp -f capacitor_bridge_src/AndroidManifest.xml android/app/src/main/AndroidManifest.xml
-            echo "Injected AndroidManifest.xml from capacitor_bridge_src"
+            echo "SUCCESS: Injected AndroidManifest.xml from capacitor_bridge_src!"
           fi
-          echo "=== Verified Injected Files ==="
-          ls -lh android/app/src/main/java/com/optimalsurgicals/quotationapp/MainActivity.java || true
-          ls -lh android/app/src/main/AndroidManifest.xml || true
-          ls -lh android/app/src/main/res/xml/file_paths.xml || true
 
       - name: Grant Execute Permission to Gradlew
         run: |
