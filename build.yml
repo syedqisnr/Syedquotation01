@@ -1,0 +1,127 @@
+name: Build and Release Android APK
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-apk:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # AUTO-HEALING STEP: Guarantees www/index.html always exists
+      - name: Ensure Web Assets in www Directory
+        run: |
+          echo "=== Verifying / Creating www Web Assets Directory ==="
+          mkdir -p www
+          if [ -f index.html ]; then
+            cp -f index.html www/index.html
+            echo "Copied root index.html to www/index.html"
+          fi
+          if [ -d public ]; then
+            cp -r public/* www/ 2>/dev/null || true
+          fi
+          if [ ! -f www/index.html ]; then
+            echo "ERROR: www/index.html could not be found!"
+            exit 1
+          fi
+          echo "www/index.html verified successfully: $(ls -lh www/index.html)"
+
+      - name: Install Dependencies
+        run: |
+          npm install || true
+
+      - name: Add Android Platform
+        run: |
+          npx cap add android || npx @capacitor/cli add android || echo "Android platform ready"
+
+      - name: Sync Web Assets into Android Project
+        run: |
+          npx cap sync android || npx @capacitor/cli sync android
+
+      # NATIVE BRIDGE INJECTION STEP: Injects AndroidBridge, FileProvider, and MediaStore Gallery Save
+      - name: Inject Native Android Bridge, Permissions & FileProvider
+        run: |
+          echo "=== INJECTING NATIVE ANDROID BRIDGE & PERMISSIONS ==="
+          mkdir -p android/app/src/main/java/com/optimalsurgicals/quotationapp/
+          mkdir -p android/app/src/main/res/xml/
+
+          # 1. Inject MainActivity.java
+          if [ -f capacitor_bridge_src/MainActivity.java ]; then
+            cp -f capacitor_bridge_src/MainActivity.java android/app/src/main/java/com/optimalsurgicals/quotationapp/MainActivity.java
+            echo "Injected from capacitor_bridge_src/MainActivity.java"
+          elif [ -f MainActivity.java ]; then
+            cp -f MainActivity.java android/app/src/main/java/com/optimalsurgicals/quotationapp/MainActivity.java
+            echo "Injected from root MainActivity.java"
+          fi
+
+          # 2. Inject file_paths.xml
+          if [ -f capacitor_bridge_src/file_paths.xml ]; then
+            cp -f capacitor_bridge_src/file_paths.xml android/app/src/main/res/xml/file_paths.xml
+            echo "Injected from capacitor_bridge_src/file_paths.xml"
+          elif [ -f file_paths.xml ]; then
+            cp -f file_paths.xml android/app/src/main/res/xml/file_paths.xml
+            echo "Injected from root file_paths.xml"
+          fi
+
+          # 3. Inject AndroidManifest.xml
+          if [ -f capacitor_bridge_src/AndroidManifest.xml ]; then
+            cp -f capacitor_bridge_src/AndroidManifest.xml android/app/src/main/AndroidManifest.xml
+            echo "Injected from capacitor_bridge_src/AndroidManifest.xml"
+          elif [ -f AndroidManifest.xml ]; then
+            cp -f AndroidManifest.xml android/app/src/main/AndroidManifest.xml
+            echo "Injected from root AndroidManifest.xml"
+          fi
+
+      - name: Grant Execute Permission to Gradlew
+        run: |
+          if [ -f android/gradlew ]; then
+            chmod +x android/gradlew
+          fi
+
+      - name: Build Debug APK
+        run: |
+          cd android
+          ./gradlew assembleDebug --stacktrace --no-daemon
+          cd ..
+          cp android/app/build/outputs/apk/debug/app-debug.apk Optimal-Intelligence-v22.apk
+          ls -lh Optimal-Intelligence-v22.apk
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug
+          path: Optimal-Intelligence-v22.apk
+          retention-days: 30
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        with:
+          tag_name: v22.0.0
+          name: "Optimal Intelligence v22.0 Supreme Master Suite (133 Tools)"
+          body: "Direct 1-click APK release for Optimal Intelligence Supreme Master Suite v22.0 with 133 specialized tools: Modular OT HVAC CFM Sizing, Biomedical Electrical Safety & Precision Calibration (IEC 60601-1), GeM L1 Reverse Auction Price Engine, Maharashtra DMER & DHS Directorate Tender Solvency Matrix, MGPS Outlets Schedule, AERB Lead Radiation Shielding, CSSD Throughput Modeler, 4K Laparoscopic Tower Amortization, LMO Cryo Tank Forecaster, and Sovereign Executive AI Cockpit for S.S. Razvi."
+          files: Optimal-Intelligence-v22.apk
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
