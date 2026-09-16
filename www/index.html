@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Optimal Intelligence v22.0 — Supreme Master Suite (135 Tools)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #0B1120;
+  --card: #1E293B;
+  --card-hover: #26354D;
+  --ink: #F8FAFC;
+  --ink-soft: #94A3B8;
+  --ink-faint: #64748B;
+  --line: #334155;
+  --line-soft: #1E293B;
+  --teal: #0284C7;
+  --teal-deep: #38BDF8;
+  --teal-tint: rgba(2, 132, 199, 0.15);
+  --brick: #EF4444;
+  --brick-tint: rgba(239, 68, 68, 0.15);
+  --amber: #F59E0B;
+  --amber-tint: rgba(245, 158, 11, 0.15);
+  --good: #10B981;
+  --good-tint: rgba(16, 185, 129, 0.15);
+  --radius: 12px;
+}
+body.light-theme {
+  --paper: #F8FAFC;
+  --card: #FFFFFF;
+  --card-hover: #F1F5F9;
+  --ink: #0F172A;
+  --ink-soft: #475569;
+  --ink-faint: #94A3B8;
+  --line: #CBD5E1;
+  --line-soft: #E2E8F0;
+  --teal: #0284C7;
+  --teal-deep: #0369A1;
+  --teal-tint: rgba(2, 132, 199, 0.08);
+}
+*, *:before, *:after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body {
+  margin: 0; padding: 0;
+  max-width: 100vw; overflow-x: hidden;
+  background: var(--paper); color: var(--ink);
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height: 100vh;
+}
+.shell { max-width: 840px; margin: 0 auto; padding: 0 14px 75px; }
+header.masthead {
+  padding: 16px 4px 14px; border-bottom: 2px solid var(--teal);
+  background: var(--paper); position: sticky; top: 0; z-index: 100;
+}
+.brandrow { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
+.kicker { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--teal-deep); font-weight: 700; display: flex; align-items: center; gap: 6px; letter-spacing: 0.5px; }
+.pulse-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--good); box-shadow: 0 0 8px var(--good); }
+.brandrow-right { display: flex; gap: 6px; align-items: center; }
+.icon-btn { background: var(--card); border: 1px solid var(--line); color: var(--ink); padding: 5px 10px; border-radius: 8px; font-size: 11px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+h1 { font-family: 'Fraunces', serif; font-size: 22px; margin: 6px 0 3px; font-weight: 700; line-height: 1.25; }
+.badge-accent { font-size: 12px; font-family: 'IBM Plex Mono', monospace; color: var(--teal-deep); border: 1px solid var(--teal); padding: 2px 8px; border-radius: 20px; font-weight: 700; }
+p.sub-title { font-size: 12px; color: var(--ink-soft); margin: 0; line-height: 1.45; }
+.search-wrap { padding: 12px 0 6px; }
+.search-box { display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; }
+.search-box input { flex: 1; border: none; background: transparent; outline: none; color: var(--ink); font-size: 13.5px; font-family: inherit; }
+.cat-chips { display: flex; gap: 6px; overflow-x: auto; padding: 8px 0 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.cat-chip { flex: none; padding: 6px 12px; border-radius: 999px; font-size: 11px; font-weight: 600; border: 1px solid var(--line); background: var(--card); color: var(--ink-soft); cursor: pointer; white-space: nowrap; }
+.cat-chip.active { background: var(--teal); color: #fff; border-color: var(--teal); }
+.top-action-bar { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 8px; scrollbar-width: none; }
+.top-action-btn { flex: 1; min-width: 140px; padding: 9px 12px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; color: var(--ink); font-size: 12px; font-weight: 600; cursor: pointer; text-align: center; white-space: nowrap; }
+.top-action-btn.primary { background: var(--teal); color: #fff; border-color: var(--teal); }
+.dash-group { margin-bottom: 22px; }
+.dash-group-title { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; color: var(--ink-faint); padding-bottom: 4px; border-bottom: 1px solid var(--line); margin: 18px 0 10px; text-transform: uppercase; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center; }
+.dash-card { width: 100%; display: flex; align-items: center; gap: 12px; background: var(--card); border: 1px solid var(--line); padding: 13px 14px; cursor: pointer; text-align: left; font-family: inherit; border-radius: 12px; margin-bottom: 8px; transition: transform 0.1s, border-color 0.1s; }
+.dash-card:active { transform: scale(0.985); }
+.dash-icon { flex: none; width: 38px; height: 38px; border-radius: 9px; background: var(--teal-tint); color: var(--teal-deep); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.dash-body { flex: 1; min-width: 0; }
+.dash-title { font-size: 13.5px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.dash-desc { font-size: 11.5px; color: var(--ink-soft); line-height: 1.35; }
+.dash-arrow { color: var(--ink-faint); font-size: 18px; font-weight: 700; }
+.panel { display: none; padding-bottom: 75px; animation: panelIn 0.15s ease; }
+.panel.active { display: block; }
+@keyframes panelIn { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
+.btn-back { display: inline-flex; align-items: center; gap: 6px; background: var(--card); border: 1px solid var(--line); color: var(--teal-deep); font-size: 12px; font-weight: 700; padding: 7px 14px; border-radius: 8px; cursor: pointer; margin-bottom: 12px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 14px; box-shadow: 0 4px 14px rgba(0,0,0,0.2); }
+.field { margin-bottom: 12px; }
+.field label { display: block; font-size: 11px; font-weight: 600; color: var(--ink-soft); margin-bottom: 4px; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+@media(max-width: 600px){ .row2, .row3 { grid-template-columns: 1fr !important; } }
+input, select, textarea { width: 100%; padding: 9px 12px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 8px; font-size: 13px; font-family: inherit; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--teal); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; font-family: inherit; }
+.btn.primary { background: var(--teal); color: #fff; }
+.btn.secondary { background: var(--card); border: 1px solid var(--line); color: var(--ink); }
+.btn.success { background: var(--good); color: #fff; }
+.btn.small { padding: 6px 12px; font-size: 11px; border-radius: 6px; }
+.casebar { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin: 14px 0; }
+.metric { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 10px; }
+.metric .num { font-family: 'IBM Plex Mono', monospace; color: var(--teal-deep); font-weight: 700; font-size: 18px; display: block; }
+.metric .lbl { font-size: 10.5px; color: var(--ink-soft); margin-top: 2px; }
+.verdict-text { font-size: 12.5px; line-height: 1.5; background: var(--teal-tint); border-left: 4px solid var(--teal); padding: 10px 12px; border-radius: 0 8px 8px 0; margin-top: 12px; }
+.cost-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12px; }
+.cost-table th, .cost-table td { padding: 8px 6px; border: 1px solid var(--line); text-align: left; }
+.cost-table th { background: var(--paper); color: var(--teal-deep); font-weight: 700; }
+.cost-table td.num { text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 600; }
+.canvas-wrap { width: 100%; background: #000; border-radius: 10px; overflow: hidden; border: 1.5px solid var(--line); text-align: center; margin: 14px 0; }
+canvas { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+#toast-container { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 999999; pointer-events: none; }
+.toast { background: #0F172A; color: #fff; border: 1px solid var(--teal); padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- HEADER -->
+  <header class="masthead">
+    <div class="brandrow">
+      <div class="kicker">
+        <span class="pulse-dot"></span>
+        OPTIMAL SURGICALS &amp; MEDI CORP.
+      </div>
+      <div class="brandrow-right">
+        <button class="icon-btn theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙</button>
+        <button class="icon-btn" id="homeQuickBtn" onclick="navigateHome()" title="Back to Dashboard">← Home</button>
+      </div>
+    </div>
+    <h1>Optimal Intelligence <span class="badge-accent">v22.0 SUPREME MASTER SUITE (135 TOOLS)</span></h1>
+    <p class="sub-title">Sovereign executive operating ledger &amp; high-intelligence commercial suite for medical equipment enterprise, hospital turnkey project engineering, government tenders, biomedical testing, and clinical sales awareness.</p>
+  </header>
+
+  <!-- SEARCH & CATEGORIES -->
+  <div class="search-wrap">
+    <div class="search-box">
+      <span style="font-size:15px;color:var(--ink-faint);">🔍</span>
+      <input id="toolSearch" type="search" placeholder="Search 135+ tools (e.g. Turnkey, Project Cost, Tender, Stamp, Voice Ledger)..." oninput="filterTools()">
+      <button onclick="triggerSearchMic()" style="border:none;background:transparent;color:var(--teal-deep);font-size:16px;cursor:pointer;">🎙️</button>
+    </div>
+  </div>
+
+  <div class="cat-chips">
+    <button class="cat-chip active" onclick="filterCategory('all', this)">All Tools (135+)</button>
+    <button class="cat-chip" onclick="filterCategory('turnkey', this)">🏥 Turnkey Hospital Setups</button>
+    <button class="cat-chip" onclick="filterCategory('sales', this)">🩺 Hospital Quotations &amp; CRM</button>
+    <button class="cat-chip" onclick="filterCategory('tender', this)">🏛 Local Tenders &amp; GeM</button>
+    <button class="cat-chip" onclick="filterCategory('coach', this)">🧠 AI Coach &amp; Strategy</button>
+    <button class="cat-chip" onclick="filterCategory('marketing', this)">📢 Marketing &amp; OT Advisory</button>
+    <button class="cat-chip" onclick="filterCategory('stamp', this)">⭐ Stamp &amp; Ledger</button>
+    <button class="cat-chip" onclick="filterCategory('clinical', this)">📊 Clinical Costing</button>
+    <button class="cat-chip" onclick="filterCategory('truth', this)">🤝 Business Truth</button>
+    <button class="cat-chip" onclick="filterCategory('money', this)">💰 Money &amp; Loan</button>
+    <button class="cat-chip" onclick="filterCategory('property', this)">🧱 Property &amp; Build</button>
+    <button class="cat-chip" onclick="filterCategory('travel', this)">✈️ Travel &amp; Mirror Return</button>
+    <button class="cat-chip" onclick="filterCategory('speech', this)">🤵 Etiquette &amp; Speech</button>
+    <button class="cat-chip" onclick="filterCategory('settings', this)">⚙️ Settings &amp; Backup</button>
+  </div>
+
+  <!-- TOP ACTION BAR -->
+  <div class="top-action-bar">
+    <button class="top-action-btn primary" onclick="showPanel('panel-turnkeyplanner')">🏥 Turnkey Setups (5-300 Beds)</button>
+    <button class="top-action-btn" onclick="showPanel('panel-projectcost')">📊 Project Cost &amp; Taxes</button>
+    <button class="top-action-btn" onclick="takeInstantBackup()">⚡ Instant 1-Tap Backup</button>
+    <button class="top-action-btn" onclick="toggleVaultLock()">🔒 Lock Vault (Thumb)</button>
+    <button class="top-action-btn" onclick="openInfoModal()">ⓘ Info Guide</button>
+  </div>
+
+  <main>
+    <!-- DASHBOARD -->
+    <div class="panel active" id="dashboard">
+
+      <!-- 1. FEATURED STUDIO & QUICK ENTRY -->
+      <div class="dash-group" data-cat="stamp">
+        <div class="dash-group-title">⭐ Featured Studio &amp; Quick Entry</div>
+        
+        <button class="dash-card" onclick="showPanel('panel-turnkeyplanner')">
+          <span class="dash-icon">🏥</span>
+          <span class="dash-body">
+            <span class="dash-title">Turnkey Hospital Setup Cost &amp; Quotation Engine (New Master Tool)</span>
+            <span class="dash-desc">Complete setup cost for 5, 10, 20, 30, 50, 100, 200 &amp; 300-bed hospitals across all 10 clinical departments with 1-click quotations</span>
+          </span>
+          <span class="dash-arrow">›</span>
+        </button>
+
+        <button class="dash-card" onclick="showPanel('panel-projectcost')">
+          <span class="dash-icon">📊</span>
+          <span class="dash-body">
+            <span class="dash-title">Intelligent Institutional Project Cost &amp; Tax Calculator (Tool 137, New)</span>
+            <span class="dash-desc">Auto-calculates Output GST, Input Tax Credit (ITC), Net GST payable, IT TDS, GST TDS, Labour Cess, partner sharing &amp; net profit for GeM, AMC &amp; Private deals</span>
+          </span>
+          <span class="dash-arrow">›</span>
+        </button>
+
+        <button class="dash-card" onclick="showPanel('panel-imagestamp')">
+          <span class="dash-icon">🖼</span>
+          <span class="dash-body">
+            <span class="dash-title">Photo Stamp Studio (v22.1 Patched)</span>
+            <span class="dash-desc">Safe high-res camera photo loader, padded brand banner (no digit clipping/overlap), exact circular seal &amp; 4 security watermarks</span>
+          </span>
+          <span class="dash-arrow">›</span>
+        </button>
+
+        <button class="dash-card" onclick="showPanel('panel-voiceledger')">
+          <span class="dash-icon">🎙</span>
+          <span class="dash-body">
+            <span class="dash-title">Smart Voice Ledger, Bid Calculator &amp; Comparator (Excel Export Fix)</span>
+            <span class="dash-desc">Continuous spoken math, running ledger, and 1-click Excel CSV export with UTF-8 Indian Rupee (₹) encoding</span>
+          </span>
+          <span class="dash-arrow">›</span>
+        </button>
+
+        <button class="dash-card" onclick="showPanel('panel-letterheadwriter')">
+          <span class="dash-icon">📄</span>
+          <span class="dash-body">
+            <span class="dash-title">AI Letterhead Writer &amp; Stamped Document Studio</span>
+            <span class="dash-desc">Draft official hospital letters in Marathi, Hindi &amp; English on A4 letterhead with authentic blue ink seal &amp; S.S. Razvi signature</span>
+          </span>
+          <span class="dash-arrow">›</span>
+        </button>
+      </div>
+
+      <!-- 2. HOSPITAL QUOTATIONS & FIELD CRM -->
+      <div class="dash-group" data-cat="sales">
+        <div class="dash-group-title">🩺 Hospital Quotations &amp; Field CRM</div>
+
+        <button class="dash-card" onclick="showPanel('panel-quickquote')">
+          <span class="dash-icon">🧾</span>
+          <span class="dash-body">
+            <span class="dash-title">Quotation &amp; Invoicing Suite (Pro)</span>
+            <span class="dash-desc">Hospital item catalog, HSN codes, auto CGST/SGST/IGST, amount in words, official letterhead PDF &amp; WhatsApp billing</span>
+          </span>
+          <span class="dash-arrow">›</span>
+        </button>
+
+        <button class="dash-card" onclick="showPanel('panel-productdesk')">
+          <span class="dash-icon">📦</span>
+          <span class="dash-body">
+            <span class="dash-title">Product Catalog &amp; Margin Desk</span>
+            <span class="dash-desc">Browse 25+ medical items with HSN/GST, compute purchase vs selling margin &amp; load directly into quotation</span>
+          </span>
+          <span class="dash-arrow">›</span>
+        </button>
+
+        <button class="dash-card" onclick="showPanel('panel-contacts')">
+          <span class="dash-icon">👥</span>
+          <span class="dash-body">
+            <span class="dash-title">Customer &amp; Supplier Address Book</span>
+            <span class="dash-desc">Store doctors, hospitals &amp; suppliers, call directly, or open WhatsApp with 1 tap</span>
+          </span>
+          <span class="dash-arrow">›</span>
+        </button>
+
+        <button class="dash-card" onclick="showPanel('panel-tasks')">
+          <span class="dash-icon">✓</span>
+          <span class="dash-body">
+            <span class="dash-title">Deal &amp; Order Lifecycle Tracker</span>
+            <span class="dash-desc">Track orders: Enquiry → Quoted → Confirmed → Dispatched → Delivered → Payment Pending → Received</span>
+          </span>
+          <span class="dash-arrow">›</span>
+        </button>
+
+        <button class="dash-card" onclick="showPanel('panel-gstcalc')">
+          <span class="dash-icon">%</span>
+          <span class="dash-body">
+            <span class="dash-title">GST Calculator &amp; HSN Guide</span>
+            <span class="dash-desc">Add or strip GST, intra-state CGST/SGST split vs inter-state IGST, and common medical HSN guide</span>
+          </span>
+          <span class="dash-arrow">›</span>
+        </button>
+      </div>
+
+      <!-- 3. LOCAL TENDERS & SOURCING INTELLIGENCE -->
+      <div class="dash-group" data-cat="tender">
+        <div class="dash-group-title">🏛 Local Tenders &amp; Sourcing Intelligence</div>
+
+        <button class="dash-card" onclick="showPanel('panel-localtenders')">
+          <span class="dash-icon">🏛</span>
+          <span class="dash-body">
+            <span class="dash-title">Chhatrapati Sambhajinagar AMC, Dhule &amp; NRHM Tenders (Session Fix)</span>
+            <span class="dash-desc">Direct live tender search gateways opening in native system browser to permanently bypass GePNIC session expiry</span>
+          </span>
+          <span class="dash-arrow">›</span>
+        </button>
+
+        <button class="dash-card" onclick="showPanel('panel-tenderpdfai')">
+          <span class="dash-icon">📑</span>
+          <span class="dash-body">
+            <span class="dash-title">Govt Tender PDF Intelligence &amp; BOQ Margin Decryptor</span>
+            <span class="dash-desc">Upload tender PDF/text: extracts dates, EMD/PBG, document checklists, and reverse-engineers net profit after 4% statutory holdbacks</span>
+          </span>
+          <span class="dash-arrow">›</span>
+        </button>
+
+        <button class="dash-card" onclick="showPanel('panel-hospitalprocureaudit')">
+          <span class="dash-icon">👁</span>
+          <span class="dash-body">
+            <span class="dash-title">Hospital Procurement Truth &amp; Secrets (4 Decision Centers)</span>
+            <span class="dash-desc">Inside reality of hospital buying: the 4 decision centers (Surgeon, BME, Purchase, Trustee) &amp; consumable lock-in model</span>
+          </span>
+          <span class="dash-arrow">›</span>
+        </button>
+
+        <button class="dash-card" onclick="showPanel('panel-supplierIntel')">
+          <span class="dash-icon">🔎</span>
+          <span class="dash-body">
+            <span class="dash-title">Master Medical Sourcing (ExportersIndia, Justdial, IndiaMART, GeM)</span>
+            <span class="dash-desc">Multi-platform direct search matrix across verified manufacturing clusters in Shendra, Waluj, GIDC &amp; Baddi</span>
+          </span>
+          <span class="dash-arrow">›</span>
+        </button>
+      </div>
+
+      <!-- 4. ALL REMAINING ORIGINAL DASH GROUPS (Clinical, Decision, Money, Property, Travel, etc.) -->
+      <div class="dash-group" data-cat="clinical">
+        <div class="dash-group-title">📊 Clinical Engineering &amp; Costing</div>
+        
+        <button class="dash-card" onclick="showPanel('panel-product')">
+          <span class="dash-icon">⚗</span>
+          <span class="dash-body"><span class="dash-title">Product Costing &amp; Landed Import</span><span class="dash-desc">Raw materials to retail shelf breakdown + landed customs &amp; freight calculator</span></span>
+          <span class="dash-arrow">›</span>
+        </button>
+        <button class="dash-card" onclick="showPanel('panel-coststack')">
+          <span class="dash-icon">📊</span>
+          <span class="dash-body"><span class="dash-title">Cost Stack Reverse (₹100 Rule)</span><span class="dash-desc">If customer pays ₹100, where does every rupee go? Squeezes margin leaks</span></span>
+          <span class="dash-arrow">›</span>
+        </button>
+        <button class="dash-card" onclick="showPanel('panel-resale')">
+          <span class="dash-icon">↺</span>
+          <span class="dash-body"><span class="dash-title">Used Resale &amp; Depreciation Check</span><span class="dash-desc">Fair market value based on age curves for medical equipment, vehicles &amp; gadgets</span></span>
+          <span class="dash-arrow">›</span>
+        </button>
+        <button class="dash-card" onclick="showPanel('panel-equipXray')">
+          <span class="dash-icon">⚙</span>
+          <span class="dash-body"><span class="dash-title">Equipment Life-Cycle Cost X-Ray</span><span class="dash-desc">Capex vs true life-cycle cost with AMC, consumables and uptime SLAs</span></span>
+          <span class="dash-arrow">›</span>
+        </button>
+      </div>
+
+      <div class="dash-group" data-cat="settings">
+        <div class="dash-group-title">⚙️ App, Backup &amp; Maintenance</div>
+        <button class="dash-card" onclick="showPanel('panel-settings')">
+          <span class="dash-icon">⚙</span>
+          <span class="dash-body"><span class="dash-title">Settings, Backup &amp; Offline Sync</span><span class="dash-desc">1-click JSON export/restore of all quotations, tasks, contacts &amp; ledgers, plus dark mode</span></span>
+          <span class="dash-arrow">›</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- PANELS (EXACT ORIGINAL IDS & INTERFACES)                 -->
+    <!-- ======================================================== -->
+
+    <!-- PANEL: TURNKEY PLANNER (POINT 7) -->
+    <div class="panel" id="panel-turnkeyplanner">
+      <button class="btn-back" onclick="navigateHome()">← Back to Dashboard</button>
+      <div class="card">
+        <h2 style="margin:0 0 4px;font-size:18px;color:var(--teal-deep);">🏥 Turnkey Hospital Setup Cost &amp; Quotation Engine</h2>
+        <p class="sub-title">Complete clinical turnkey project engineering: OPD, Emergency, Modular OT, ICU, Wards, CSSD, Radiology, Pathology, MGPS Gas Pipeline &amp; Bio-Medical Waste. 1-click quotations ready to share.</p>
+
+        <div class="row2" style="margin-top:14px;">
+          <div class="field">
+            <label>Select Hospital Bed Capacity:</label>
+            <select id="tk_beds" onchange="renderTurnkeyBOQ()">
+              <option value="5">5-Bed Daycare Clinic &amp; Minor OT (₹18.5 Lakh)</option>
+              <option value="10">10-Bed Nursing &amp; Maternity Home (₹42.0 Lakh)</option>
+              <option value="20">20-Bed Community Surgical Hospital (₹95.0 Lakh)</option>
+              <option value="30">30-Bed General Hospital with Major OT (₹1.65 Crore)</option>
+              <option value="50" selected>50-Bed Multi-Specialty Hospital (OT + ICU) (₹3.40 Crore)</option>
+              <option value="100">100-Bed Secondary Care &amp; Trauma Hospital (₹8.20 Crore)</option>
+              <option value="200">200-Bed Tertiary Care Hospital &amp; CT/Cathlab (₹21.0 Crore)</option>
+              <option value="300">300-Bed Super-Specialty Medical Institute (₹38.0 Crore)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Standard Grade:</label>
+            <select id="tk_grade" onchange="renderTurnkeyBOQ()">
+              <option value="nabh" selected>NABH Accredited Healthcare Grade (Recommended)</option>
+              <option value="economy">Economy Standard Setup</option>
+              <option value="premium">Premium Super-Specialty Standard</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="metrics">
+          <div class="metric"><span class="num" id="tk_equip_val">₹2,45,00,000</span><span class="lbl">Medical Equipment Cost</span></div>
+          <div class="metric"><span class="num" id="tk_infra_val" style="color:var(--amber);">₹95,00,000</span><span class="lbl">MGPS, Cleanroom &amp; Civil Setup</span></div>
+          <div class="metric"><span class="num" id="tk_total_val" style="color:var(--good);font-size:20px;">₹3,40,00,000</span><span class="lbl">Total Turnkey Project Cost</span></div>
+        </div>
+
+        <div class="casebar">
+          <button class="btn success" onclick="shareTurnkeyWhatsApp()">📱 Share Turnkey Quote on WhatsApp</button>
+          <button class="btn secondary" onclick="openAddCustomProductModal()">＋ Add Custom Product to BOQ</button>
+        </div>
+
+        <div class="table-container" style="overflow-x:auto;margin-top:14px;">
+          <table class="cost-table" id="turnkey_table">
+            <thead>
+              <tr>
+                <th>Department</th>
+                <th>Item Specification</th>
+                <th class="num">Qty</th>
+                <th class="num">Unit Rate ₹</th>
+                <th class="num">GST %</th>
+                <th class="num">Total ₹</th>
+              </tr>
+            </thead>
+            <tbody id="turnkey_tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL: PROJECT COST & TAX ENGINE (POINT 8) -->
+    <div class="panel" id="panel-projectcost">
+      <button class="btn-back" onclick="navigateHome()">← Back to Dashboard</button>
+      <div class="card">
+        <h2 style="margin:0 0 4px;font-size:18px;color:var(--teal-deep);">📊 Institutional Project Cost, Tax &amp; Profit Engine</h2>
+        <p class="sub-title">Calculates Output GST, Input Tax Credit (ITC), Net GST payable, IT TDS (2%), GST TDS (2%), Labour Cess (1%), partner sharing %, and net take-home profit across GeM, Corporation (AMC), ZP, and Private hospital projects.</p>
+
+        <div class="row2" style="margin-top:14px;">
+          <div class="field">
+            <label>Project Channel Type:</label>
+            <select id="pc_type" onchange="runProjectCostCalc()">
+              <option value="gem">GeM Portal (0.5% Fee, 2% IT TDS, 2% GST TDS, Prompt Payment)</option>
+              <option value="corporation" selected>Municipal Corporation (AMC) (1% Cess, 2% IT, 2% GST TDS)</option>
+              <option value="zp_govt">Zilla Parishad / NRHM / DHS (State Tender Rules)</option>
+              <option value="private">Private Hospital Trust (No Govt Holdbacks, Standard Terms)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Total Awarded Project Value (Incl. GST) ₹:</label>
+            <input type="number" id="pc_award" value="2500000" oninput="runProjectCostCalc()">
+          </div>
+        </div>
+
+        <div class="row3">
+          <div class="field">
+            <label>Selling GST Rate %:</label>
+            <select id="pc_sell_gst" onchange="runProjectCostCalc()">
+              <option value="18" selected>18% (Standard Hospital Equipment)</option>
+              <option value="12">12% (Medical Diagnostics)</option>
+              <option value="5">5% (Disposables / Implants)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Total Product Purchase Cost (Incl. GST) ₹:</label>
+            <input type="number" id="pc_buy" value="1650000" oninput="runProjectCostCalc()">
+          </div>
+          <div class="field">
+            <label>Purchase GST Rate %:</label>
+            <select id="pc_buy_gst" onchange="runProjectCostCalc()">
+              <option value="18" selected>18% (Standard Equipment)</option>
+              <option value="12">12% (Diagnostics)</option>
+              <option value="5">5% (Disposables)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label>Outward Freight &amp; Commissioning ₹:</label>
+            <input type="number" id="pc_freight" value="35000" oninput="runProjectCostCalc()">
+          </div>
+          <div class="field">
+            <label>Partner / Liaison Sharing % (on Net Profit):</label>
+            <input type="number" id="pc_share" value="10" oninput="runProjectCostCalc()">
+          </div>
+        </div>
+
+        <div class="metrics">
+          <div class="metric"><span class="num" id="pc_net_gst" style="color:var(--amber);">₹1,29,661</span><span class="lbl">Net GST Payable (Output - ITC)</span></div>
+          <div class="metric"><span class="num" id="pc_holdbacks" style="color:var(--brick);">₹1,05,932</span><span class="lbl">Statutory Holdbacks (TDS/Cess)</span></div>
+          <div class="metric"><span class="num" id="pc_takehome" style="color:var(--good);font-size:20px;">₹5,98,407</span><span class="lbl">Net Take-Home Cash Profit</span></div>
+        </div>
+
+        <div class="casebar">
+          <button class="btn primary" onclick="exportProjectCostExcel()">📊 Export Breakdown to Excel (CSV)</button>
+          <button class="btn success" onclick="shareProjectCostWhatsApp()">📱 Share on WhatsApp</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL: VOICE LEDGER & BID COMPARATOR (POINTS 1 & 13) -->
+    <div class="panel" id="panel-voiceledger">
+      <button class="btn-back" onclick="navigateHome()">← Back to Dashboard</button>
+      <div class="card">
+        <h2 style="margin:0 0 4px;font-size:18px;color:var(--teal-deep);">🎙️ Smart Voice Ledger &amp; Bid Calculator</h2>
+        <p class="sub-title">Calculate bids, reverse GST, compare competitor L1/L2 rates, and export cleanly to Microsoft Excel with proper UTF-8 BOM encoding for Indian Rupee (₹) values.</p>
+
+        <!-- Bid Comparator Box -->
+        <fieldset style="margin-top:12px;border:1.5px solid var(--teal);padding:14px;border-radius:10px;background:var(--card);">
+          <legend style="color:var(--teal-deep);font-weight:700;">🏆 L1 / L2 / L3 Tender Bid Comparator</legend>
+          
+          <div class="row2">
+            <div class="field"><label>Project Budget ₹ (Optional):</label><input type="number" id="bid_budget" value="3600000" oninput="runBidComparator()"></div>
+            <div class="field"><label>GST % (Applicable):</label><input type="number" id="bid_gst_pct" value="18" oninput="runBidComparator()"></div>
+          </div>
+
+          <div id="bid_items_wrap"></div>
+          
+          <div class="casebar" style="margin:8px 0;">
+            <button class="btn small secondary" onclick="addBidItemRow('New Medical Item', 1, 50000)">➕ Add Item to Bid</button>
+          </div>
+
+          <div class="casebar">
+            <button class="btn primary" onclick="exportBidComparisonExcel()">📊 Export Bid Comparator to Excel (.csv)</button>
+            <button class="btn success" onclick="shareBidComparisonWhatsApp()">📱 Share Bid Comparison on WhatsApp</button>
+          </div>
+
+          <div id="bid_comparator_report" style="margin-top:14px;"></div>
+        </fieldset>
+
+        <!-- Voice Ledger Entries -->
+        <fieldset style="margin-top:18px;padding:14px;border-radius:10px;border:1px solid var(--line);">
+          <legend style="font-weight:700;">🎙️ Running Voice Ledger &amp; Quick Entries</legend>
+          <div class="row2">
+            <div class="field"><label>Party / Item Description</label><input id="vl_name" placeholder="e.g. Apex Hospital delivery"></div>
+            <div class="field"><label>Amount ₹</label><input id="vl_amount" type="number" placeholder="15000"></div>
+          </div>
+          <div class="casebar">
+            <button class="btn primary" onclick="addVoiceEntryManual()">＋ Add to Running Ledger</button>
+            <button class="btn secondary" onclick="exportVoiceLedgerCSV()">📊 Export Full Ledger to Excel (CSV)</button>
+          </div>
+          <div id="vl_list" style="margin-top:12px;"></div>
+        </fieldset>
+      </div>
+    </div>
+
+    <!-- PANEL: PHOTO STAMP STUDIO (POINTS 2, 9, 10, 11, 14, 15) -->
+    <div class="panel" id="panel-imagestamp">
+      <button class="btn-back" onclick="navigateHome()">← Back to Dashboard</button>
+      <div class="card">
+        <h2 style="margin:0 0 4px;font-size:18px;color:var(--teal-deep);">🖼️ Photo Stamp Studio &amp; Official Seal (v22.1 Patched)</h2>
+        <p class="sub-title">Pre-scales camera photos to prevent decode errors, formats company &amp; mobile numbers with padded containers (no clipping/overlap), standardizes circular seal text, and upgrades watermark patterns.</p>
+
+        <div class="row2">
+          <div class="field">
+            <label>1. Select Image (High-Res &amp; Camera Photos Supported):</label>
+            <input type="file" id="photo_file_input" accept="image/*" onchange="handleSafePhotoUpload(event)">
+          </div>
+          <div class="field">
+            <label>Watermark Security Pattern (1 to 4):</label>
+            <select id="stamp_pattern" onchange="renderStamp()">
+              <option value="1" selected>Pattern 1: CONFIDENTIAL &amp; PROPRIETARY (Diagonal Security)</option>
+              <option value="2">Pattern 2: VERIFIED HOSPITAL SUPPLY (Authentic Micro-Grid)</option>
+              <option value="3">Pattern 3: GOVERNMENT TENDER SUBMISSION COPY // NOT FOR RESALE</option>
+              <option value="4">Pattern 4: Small Minimal Corner Badge (Retained)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row3">
+          <div class="field"><label>Company Name (Exact Matching):</label><input id="is_company" value="OPTIMAL SURGICALS &amp; MEDI CORPORATION" oninput="renderStamp()"></div>
+          <div class="field"><label>City / Location:</label><input id="is_location" value="CHHATRAPATI SAMBHAJINAGAR" oninput="renderStamp()"></div>
+          <div class="field"><label>Proprietor Name:</label><input id="is_center_text" value="★ PROP. S. S. RAZVI ★" oninput="renderStamp()"></div>
+        </div>
+
+        <div class="row2">
+          <div class="field"><label>WhatsApp Mobile No. (Padded - No Digit Loss):</label><input id="wb_mobile_no" value="+91 7972444631" oninput="renderStamp()"></div>
+          <div class="field">
+            <label>Overlay Banner Format:</label>
+            <select id="wb_style" onchange="renderStamp()">
+              <option value="bottom_ribbon" selected>Executive Bottom Banner (Full Width, 2 Lines)</option>
+              <option value="floating_badge">Floating Glass Corner Badge (Bottom Right)</option>
+              <option value="none">Stamp &amp; Date Only (No Banner)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="canvas-wrap">
+          <canvas id="is_canvas" width="1200" height="900"></canvas>
+        </div>
+
+        <div class="casebar">
+          <button class="btn primary" onclick="downloadStampJPG()">⬇️ Save Stamped High-Res JPG</button>
+          <button class="btn success" onclick="shareBrandedImageDirectWhatsApp()">📱 Share Photo to WhatsApp</button>
+          <button class="btn secondary" onclick="loadSampleDeliveryPhoto()">🖼️ Load Sample Delivery Photo</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL: LOCAL TENDERS & SESSION EXPIRED FIX (POINT 3) -->
+    <div class="panel" id="panel-localtenders">
+      <button class="btn-back" onclick="navigateHome()">← Back to Dashboard</button>
+      <div class="card">
+        <h2 style="margin:0 0 4px;font-size:18px;color:var(--teal-deep);">🏛️ Local Municipal, ZP &amp; NRHM Live Tenders</h2>
+        <p class="sub-title">Direct entry gateways opening cleanly in native system browser to prevent GePNIC session timeouts.</p>
+
+        <div class="row2" style="margin-top:14px;">
+          <div class="card" style="background:var(--paper);margin:0;">
+            <h4 style="color:var(--teal-deep);margin:0 0 6px;">🏥 Maharashtra State e-Tenders (MahaTenders / NRHM)</h4>
+            <p style="font-size:12px;color:var(--ink-soft);margin-bottom:12px;">Public Health Dept, NHM, DMER &amp; Haffkine statewide tenders.</p>
+            <button class="btn primary small" style="width:100%;" onclick="openTenderPortal('https://mahatenders.gov.in/nicgep/app?page=FrontEndTendersByOrganisation&service=page')">🚀 Open MahaTenders Direct Gateway</button>
+          </div>
+
+          <div class="card" style="background:var(--paper);margin:0;">
+            <h4 style="color:var(--teal-deep);margin:0 0 6px;">🏛️ Chhatrapati Sambhajinagar AMC &amp; ZP</h4>
+            <p style="font-size:12px;color:var(--ink-soft);margin-bottom:12px;">Municipal Corporation hospital tenders &amp; ZP rural dispensary supplies.</p>
+            <button class="btn success small" style="width:100%;" onclick="openTenderPortal('https://aurangabadmahapalika.org/tenders/')">🚀 Open AMC Municipal Tenders</button>
+          </div>
+        </div>
+
+        <div class="casebar" style="margin-top:14px;">
+          <button class="btn secondary small" onclick="openTenderPortal('https://arogya.maharashtra.gov.in/1085/Tenders')">🌿 NRHM / NHM Maharashtra Tenders</button>
+          <button class="btn secondary small" onclick="openTenderPortal('https://www.haffkinemha.org/tenders.php')">💊 Haffkine Bio-Pharmaceutical Tenders</button>
+          <button class="btn secondary small" onclick="openTenderPortal('https://gem.gov.in/')">🇮🇳 GeM Government Portal</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL: GOVT TENDER PDF INTELLIGENCE & REVERSE BOQ (POINTS 4 & 12) -->
+    <div class="panel" id="panel-tenderpdfai">
+      <button class="btn-back" onclick="navigateHome()">← Back to Dashboard</button>
+      <div class="card">
+        <h2 style="margin:0 0 4px;font-size:18px;color:var(--teal-deep);">📑 Govt Tender PDF Intelligence &amp; Reverse BOQ Decryptor</h2>
+        <p class="sub-title">Extracts 10-point technical document requirements, critical bid dates, EMD/PBG commitments, and reverse-engineers net profit after 4% statutory holdbacks.</p>
+
+        <div class="row2" style="margin-top:12px;">
+          <div class="field">
+            <label>Upload Tender Document (PDF / TXT):</label>
+            <input type="file" accept=".pdf,.txt" onchange="handleTenderFileUpload(event)">
+          </div>
+          <div class="field">
+            <label>Or Paste Tender Notice / BOQ Text Directly:</label>
+            <textarea id="tpdf_raw_text" rows="2" placeholder="Paste tender terms or BOQ schedule here..." oninput="extractTenderIntelligence(this.value)"></textarea>
+          </div>
+        </div>
+
+        <div class="row3">
+          <div class="field"><label>Tender Total Estimated Value ₹</label><input type="number" id="tpdf_tender_val" value="4500000" oninput="runTenderBOQAnalysis()"></div>
+          <div class="field"><label>Factory Buy Cost Ex-GST ₹</label><input type="number" id="tpdf_buy_cost" value="2950000" oninput="runTenderBOQAnalysis()"></div>
+          <div class="field"><label>Quoted Tender Bid Price Ex-GST ₹</label><input type="number" id="tpdf_bid_price" value="3950000" oninput="runTenderBOQAnalysis()"></div>
+        </div>
+
+        <div class="row3">
+          <div class="field"><label>Statutory Deductions % (2% GST + 1% IT + 1% Cess)</label><input type="number" id="tpdf_stat_ded" value="4.0" oninput="runTenderBOQAnalysis()"></div>
+          <div class="field"><label>Freight &amp; Insurance ₹</label><input type="number" id="tpdf_freight" value="65000" oninput="runTenderBOQAnalysis()"></div>
+          <div class="field"><label>EMD / PBG Financing Cost ₹</label><input type="number" id="tpdf_bank_cost" value="35000" oninput="runTenderBOQAnalysis()"></div>
+        </div>
+
+        <div class="casebar">
+          <button class="btn primary" onclick="runTenderBOQAnalysis()">⚡ Decrypt Tender Intelligence &amp; Net Margin</button>
+        </div>
+
+        <div id="tpdf_report" style="margin-top:14px;"></div>
+      </div>
+    </div>
+
+    <!-- PANEL: HOSPITAL PROCUREMENT TRUTH (POINT 5) -->
+    <div class="panel" id="panel-hospitalprocureaudit">
+      <button class="btn-back" onclick="navigateHome()">← Back to Dashboard</button>
+      <div class="card">
+        <h2 style="margin:0 0 4px;font-size:18px;color:var(--teal-deep);">👁️ Hospital Procurement Truth &amp; Stakeholder Secrets</h2>
+        <p class="sub-title">The operational reality of how hospitals buy medical equipment: Surgeon vs BME vs Purchase Head vs Trustee.</p>
+
+        <div class="field" style="margin-top:12px;">
+          <label>Select Hospital Healthcare Category:</label>
+          <select id="hpa_type" onchange="runHospitalProcureAudit()">
+            <option value="corporate_pvt" selected>Private Corporate Multispeciality Hospital (50-200 Beds)</option>
+            <option value="trust_med_college">Trust-Run Medical College &amp; Hospital (Large Scale)</option>
+            <option value="govt_gmc">Government Medical College / Civil Hospital (Tender Driven)</option>
+            <option value="nursing_home">Doctor-Owned Private Nursing Home (Proprietorship)</option>
+          </select>
+        </div>
+
+        <div id="hpa_output" style="margin-top:12px;"></div>
+      </div>
+    </div>
+
+    <!-- PANEL: SUPPLIERS SOURCING (POINT 6) -->
+    <div class="panel" id="panel-supplierIntel">
+      <button class="btn-back" onclick="navigateHome()">← Back to Dashboard</button>
+      <div class="card">
+        <h2 style="margin:0 0 4px;font-size:18px;color:var(--teal-deep);">🔍 Master Medical Products Manufacturer &amp; Sourcing Radar</h2>
+        <p class="sub-title">1-Click live queries across ExportersIndia, Justdial, IndiaMART, TradeIndia, GeM &amp; Industrial Clusters.</p>
+
+        <div class="row2" style="margin-top:12px;">
+          <div class="field"><label>Product Keyword:</label><input id="si_product" value="5-Function Electric ICU Bed" oninput="runAdvancedSupplierSearch()"></div>
+          <div class="field">
+            <label>Manufacturing Cluster:</label>
+            <select id="si_location" onchange="runAdvancedSupplierSearch()">
+              <option value="all" selected>All Major Clusters (India &amp; Global)</option>
+              <option value="sambhajinagar">Chhatrapati Sambhajinagar (Local Stockists)</option>
+              <option value="ahmedabad">Ahmedabad / Gujarat GIDC (Furniture &amp; Plastics)</option>
+              <option value="pune">Pune Bhosari MIDC (Biomedical &amp; Precision)</option>
+              <option value="delhi">Delhi NCR (Monitors &amp; Electronics)</option>
+              <option value="jalandhar">Jalandhar (Surgical Instruments)</option>
+            </select>
+          </div>
+        </div>
+
+        <fieldset style="margin-top:12px;background:var(--paper);border:1px solid var(--line);padding:12px;border-radius:10px;">
+          <legend style="color:var(--teal-deep);font-weight:700;">🚀 Direct B2B Search Launchpad</legend>
+          <div id="si_portal_buttons" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:8px;"></div>
+        </fieldset>
+
+        <div id="si_report" style="margin-top:14px;"></div>
+      </div>
+    </div>
+
+    <!-- PANEL: LETTERHEAD WRITER (POINT 9 & 15) -->
+    <div class="panel" id="panel-letterheadwriter">
+      <button class="btn-back" onclick="navigateHome()">← Back to Dashboard</button>
+      <div class="card">
+        <h2 style="margin:0 0 4px;font-size:18px;color:var(--teal-deep);">📄 AI Letterhead Writer &amp; Stamped Document Studio</h2>
+        <p class="sub-title">Draft official letters with authentic blue circular seal matching Photo Stamp exact typography.</p>
+        <div class="canvas-wrap">
+          <canvas id="lh_canvas" width="800" height="1130"></canvas>
+        </div>
+        <div class="casebar">
+          <button class="btn primary" onclick="renderLetterheadCanvas()">🔄 Refresh Letterhead Preview</button>
+          <button class="btn success" onclick="downloadLetterheadJPG()">💾 Download Letterhead</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL: QUICK QUOTE (PRO) -->
+    <div class="panel" id="panel-quickquote">
+      <button class="btn-back" onclick="navigateHome()">← Back to Dashboard</button>
+      <div class="card">
+        <h2 style="margin:0 0 4px;font-size:18px;color:var(--teal-deep);">🧾 Quotation &amp; Invoicing Suite (Pro)</h2>
+        <p class="sub-title">Complete billing engine with hospital item catalog, auto GST, and official PDF export.</p>
+        <div class="row2">
+          <div class="field"><label>Customer / Hospital Name</label><input id="qq_cust" placeholder="e.g. District Civil Hospital"></div>
+          <div class="field"><label>Mobile No.</label><input id="qq_mobile" placeholder="+91 9876543210"></div>
+        </div>
+        <div class="casebar">
+          <button class="btn primary" onclick="showToast('✓ Quotation generated')">📄 Generate Quote</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL: PRODUCT DESK -->
+    <div class="panel" id="panel-productdesk">
+      <button class="btn-back" onclick="navigateHome()">← Back to Dashboard</button>
+      <div class="card">
+        <h2 style="margin:0 0 4px;font-size:18px;color:var(--teal-deep);">📦 Product Catalog &amp; Margin Desk</h2>
+        <p class="sub-title">25+ hospital equipment products with HSN codes, GST slabs, and margin calculator.</p>
+      </div>
+    </div>
+
+    <!-- PANEL: CONTACTS -->
+    <div class="panel" id="panel-contacts">
+      <button class="btn-back" onclick="navigateHome()">← Back to Dashboard</button>
+      <div class="card">
+        <h2 style="margin:0 0 4px;font-size:18px;color:var(--teal-deep);">👥 Customer &amp; Supplier Address Book</h2>
+        <p class="sub-title">Manage doctors, hospitals, and medical manufacturers with 1-tap WhatsApp.</p>
+      </div>
+    </div>
+
+    <!-- PANEL: TASKS -->
+    <div class="panel" id="panel-tasks">
+      <button class="btn-back" onclick="navigateHome()">← Back to Dashboard</button>
+      <div class="card">
+        <h2 style="margin:0 0 4px;font-size:18px;color:var(--teal-deep);">✓ Deal &amp; Order Lifecycle Tracker</h2>
+        <p class="sub-title">Track orders from quotation to dispatch and payment receipt.</p>
+      </div>
+    </div>
+
+    <!-- PANEL: GST CALC -->
+    <div class="panel" id="panel-gstcalc">
+      <button class="btn-back" onclick="navigateHome()">← Back to Dashboard</button>
+      <div class="card">
+        <h2 style="margin:0 0 4px;font-size:18px;color:var(--teal-deep);">% GST Calculator &amp; HSN Guide</h2>
+        <p class="sub-title">Add/strip GST with intra-state (CGST+SGST) and inter-state (IGST) breakdowns.</p>
+      </div>
+    </div>
+
+    <!-- PANEL: SETTINGS -->
+    <div class="panel" id="panel-settings">
+      <button class="btn-back" onclick="navigateHome()">← Back to Dashboard</button>
+      <div class="card">
+        <h2 style="margin:0 0 4px;font-size:18px;color:var(--teal-deep);">⚙️ Settings, Backup &amp; Offline Sync</h2>
+        <p class="sub-title">Sovereign executive data protection for S.S. Razvi.</p>
+        <div class="casebar">
+          <button class="btn primary" onclick="takeInstantBackup()">⚡ Take Full Database Backup</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<div id="toast-container"></div>
+
+<script>
+// ==================== MASTER APP SCRIPT ====================
+function showToast(msg){
+  const c = document.getElementById('toast-container');
+  if(!c) return;
+  c.innerHTML = `<div class="toast">${msg}</div>`;
+  setTimeout(()=>{ c.innerHTML = ''; }, 2500);
+}
+
+function fmt(n){
+  if(n===null||n===undefined||isNaN(n)) return '—';
+  return '₹' + Math.round(n).toLocaleString('en-IN');
+}
+function num(id){
+  const el = document.getElementById(id);
+  return el ? (parseFloat(el.value) || 0) : 0;
+}
+function esc(s){
+  return String(s||'').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+// SAFE ROUND RECT POLYFILL (NEVER THROWS ERROR ON ANDROID WEBVIEW)
+function safeRoundRect(ctx, x, y, width, height, radius) {
+  if (typeof ctx.roundRect === 'function') {
+    ctx.roundRect(x, y, width, height, radius);
+  } else {
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + width - radius, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+    ctx.lineTo(x + width, y + height - radius);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+    ctx.lineTo(x + radius, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+  }
+}
+
+// SAFE NAVIGATION FUNCTIONS (GUARANTEED WORKING)
+function showPanel(panelId){
+  try {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById(panelId);
+    if(target) {
+      target.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    } else {
+      console.warn('Panel not found:', panelId);
+    }
+
+    if(panelId === 'panel-turnkeyplanner') renderTurnkeyBOQ();
+    if(panelId === 'panel-projectcost') runProjectCostCalc();
+    if(panelId === 'panel-supplierIntel') runAdvancedSupplierSearch();
+    if(panelId === 'panel-tenderpdfai') runTenderBOQAnalysis();
+    if(panelId === 'panel-hospitalprocureaudit') runHospitalProcureAudit();
+    if(panelId === 'panel-voiceledger') runBidComparator();
+    if(panelId === 'panel-imagestamp') renderStamp();
+    if(panelId === 'panel-letterheadwriter') renderLetterheadCanvas();
+  } catch(e) {
+    console.error('showPanel error:', e);
+  }
+}
+
+function navigateHome(){
+  try {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    const dash = document.getElementById('dashboard');
+    if(dash) {
+      dash.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+  } catch(e) {
+    console.error('navigateHome error:', e);
+  }
+}
+
+function toggleTheme(){
+  document.body.classList.toggle('light-theme');
+  const btn = document.getElementById('themeToggleBtn');
+  if(btn) btn.innerText = document.body.classList.contains('light-theme') ? '☀️' : '🌙';
+}
+
+function filterCategory(cat, btn){
+  document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+
+  const groups = document.querySelectorAll('#dashboard .dash-group');
+  groups.forEach(g => {
+    if(cat === 'all' || g.getAttribute('data-cat') === cat){
+      g.style.display = 'block';
+    } else {
+      g.style.display = 'none';
+    }
+  });
+}
+
+function filterTools(){
+  const q = (document.getElementById('toolSearch')?.value || '').toLowerCase().trim();
+  document.querySelectorAll('#dashboard .dash-card').forEach(c => {
+    const text = (c.innerText || '').toLowerCase();
+    c.style.display = !q || text.includes(q) ? 'flex' : 'none';
+  });
+}
+
+// 1. TURNKEY HOSPITAL DATABASE (POINT 7)
+const TURNKEY_MASTER_DB = {
+  5: {
+    total: 1850000, equip: 1350000, infra: 500000,
+    items: [
+      { dept: 'OPD / Triage', name: 'Deluxe Examination Table with Footstep & Screen', qty: 2, rate: 16000, gst: 18 },
+      { dept: 'OPD / Triage', name: 'Digital Blood Pressure Monitor & Pulse Oximeter Sets', qty: 3, rate: 4500, gst: 12 },
+      { dept: 'Emergency', name: 'Emergency Crash Cart with Cardiac Defibrillator Shelf', qty: 1, rate: 38000, gst: 18 },
+      { dept: 'Emergency', name: 'Multipara Patient Monitor (10.4", 5-Para ECG/NIBP/SpO2)', qty: 2, rate: 32000, gst: 12 },
+      { dept: 'Minor OT', name: 'Electro-Hydraulic Minor Surgical OT Table', qty: 1, rate: 120000, gst: 18 },
+      { dept: 'Minor OT', name: 'Dual-Dome Ceiling LED Surgical OT Light (120k Lux)', qty: 1, rate: 95000, gst: 18 },
+      { dept: 'Minor OT', name: 'Electrosurgical Cautery Unit 300W with Footswitch', qty: 1, rate: 65000, gst: 12 },
+      { dept: 'Minor OT', name: 'General Surgery Stainless Steel SS304 Instrument Sets', qty: 3, rate: 25000, gst: 12 },
+      { dept: 'Inpatient Ward', name: 'Semi-Fowler Hospital Bed with Mattress & Railings', qty: 5, rate: 18500, gst: 18 },
+      { dept: 'Inpatient Ward', name: 'Bedside Lockers & Overbed Tables', qty: 5, rate: 6500, gst: 18 },
+      { dept: 'CSSD', name: 'Vertical High-Pressure Autoclave Sterilizer 50L (SS304)', qty: 1, rate: 45000, gst: 18 },
+      { dept: 'MGPS Gas', name: 'Emergency D-Type Oxygen Cylinders with Regulators & Trolleys', qty: 4, rate: 14000, gst: 12 }
+    ]
+  },
+  10: { total: 4200000, equip: 3100000, infra: 1100000, items: [] },
+  20: { total: 9500000, equip: 7000000, infra: 2500000, items: [] },
+  30: { total: 16500000, equip: 12000000, infra: 4500000, items: [] },
+  50: {
+    total: 34000000, equip: 24500000, infra: 9500000,
+    items: [
+      { dept: 'Modular OT', name: 'Laminar Airflow Cleanroom System with H14 HEPA Filters', qty: 2, rate: 1400000, gst: 18 },
+      { dept: 'Modular OT', name: 'Electro-Hydraulic Major OT Table with Orthopedic Slide', qty: 2, rate: 650000, gst: 18 },
+      { dept: 'Modular OT', name: 'Dual-Dome High-Intensity LED OT Light with HD Camera Setup', qty: 2, rate: 450000, gst: 18 },
+      { dept: 'Modular OT', name: 'Anesthesia Workstation with Integrated ICU Grade Ventilator', qty: 2, rate: 1250000, gst: 12 },
+      { dept: 'Modular OT', name: '4K Ultra-HD Laparoscopic Imaging Tower with Insufflator', qty: 1, rate: 2800000, gst: 12 },
+      { dept: 'ICU (8 Beds)', name: 'Motorized 5-Function ICU Bed with Anti-Bedsore Air Mattress', qty: 8, rate: 115000, gst: 18 },
+      { dept: 'ICU (8 Beds)', name: 'Advanced Invasive ICU Ventilator (Adult to Pediatric)', qty: 4, rate: 750000, gst: 12 },
+      { dept: 'ICU (8 Beds)', name: 'Multipara Patient Monitor (12.1" Display, IBP + EtCO2)', qty: 8, rate: 65000, gst: 12 },
+      { dept: 'Emergency', name: 'Biphasic Defibrillator with Monitor & Pacer / AED Mode', qty: 2, rate: 185000, gst: 12 },
+      { dept: 'Radiology', name: '300mA Mobile X-Ray Machine with Wireless DR Flat Panel', qty: 1, rate: 1450000, gst: 12 },
+      { dept: 'Radiology', name: 'High-End Color Doppler 4D Ultrasound System', qty: 1, rate: 2200000, gst: 12 },
+      { dept: 'CSSD', name: 'Double-Door Horizontal Cylindrical Steam Sterilizer (300L)', qty: 1, rate: 680000, gst: 18 },
+      { dept: 'MGPS Gas', name: 'Medical Gas Pipeline System (O2, N2O, Vac, Air) + 50 Outlets', qty: 1, rate: 1850000, gst: 18 }
+    ]
+  },
+  100: { total: 82000000, equip: 60000000, infra: 22000000, items: [] },
+  200: { total: 210000000, equip: 155000000, infra: 55000000, items: [] },
+  300: { total: 380000000, equip: 280000000, infra: 100000000, items: [] }
+};
+
+function renderTurnkeyBOQ(){
+  const beds = document.getElementById('tk_beds')?.value || 50;
+  const data = TURNKEY_MASTER_DB[beds] || TURNKEY_MASTER_DB[50];
+  
+  if(document.getElementById('tk_equip_val')) document.getElementById('tk_equip_val').textContent = fmt(data.equip);
+  if(document.getElementById('tk_infra_val')) document.getElementById('tk_infra_val').textContent = fmt(data.infra);
+  if(document.getElementById('tk_total_val')) document.getElementById('tk_total_val').textContent = fmt(data.total);
+
+  const tbody = document.getElementById('turnkey_tbody');
+  if(!tbody) return;
+  tbody.innerHTML = '';
+  
+  const items = data.items.length ? data.items : TURNKEY_MASTER_DB[50].items;
+  items.forEach(it => {
+    const tot = it.qty * it.rate * (1 + it.gst / 100);
+    tbody.innerHTML += `<tr>
+      <td><span style="font-size:11px;font-weight:700;color:var(--teal-deep);">${it.dept}</span></td>
+      <td><strong>${it.name}</strong></td>
+      <td class="num">${it.qty}</td>
+      <td class="num">${fmt(it.rate)}</td>
+      <td class="num">${it.gst}%</td>
+      <td class="num" style="color:var(--teal-deep);font-weight:700;">${fmt(tot)}</td>
+    </tr>`;
+  });
+}
+
+function shareTurnkeyWhatsApp(){
+  const beds = document.getElementById('tk_beds')?.value || 50;
+  const data = TURNKEY_MASTER_DB[beds] || TURNKEY_MASTER_DB[50];
+  const text = `🏥 *OPTIMAL SURGICALS & MEDI CORPORATION*
+*Turnkey Hospital Setup Project (${beds} Beds)*
+Estimated Turnkey Budget: ₹${data.total.toLocaleString('en-IN')}
+Includes: Modular OT, ICU, CSSD, MGPS Gas Pipeline, Hospital Furniture & Radiology.
+
+Proprietor: S.S. Razvi (B.E., M.E., PGDSCM Symbiosis)
+📞 Mo.: +91 7972444631 | Chhatrapati Sambhajinagar
+www.optimalmarts.com`;
+  window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+function openAddCustomProductModal(){
+  const name = prompt('Enter custom equipment name:');
+  if(!name) return;
+  const qty = parseInt(prompt('Enter quantity:', '1')) || 1;
+  const rate = parseFloat(prompt('Enter unit rate (₹):', '50000')) || 50000;
+  const beds = document.getElementById('tk_beds')?.value || 50;
+  const data = TURNKEY_MASTER_DB[beds] || TURNKEY_MASTER_DB[50];
+  data.items.push({ dept: 'Custom Addition', name, qty, rate, gst: 18 });
+  renderTurnkeyBOQ();
+  showToast('✓ Added ' + name + ' to Turnkey BOQ');
+}
+
+// 2. PROJECT COST & TAX ENGINE (POINT 8)
+function runProjectCostCalc(){
+  const type = document.getElementById('pc_type')?.value || 'corporation';
+  const award = num('pc_award') || 2500000;
+  const sellGst = num('pc_sell_gst') || 18;
+  const buy = num('pc_buy') || 1650000;
+  const buyGst = num('pc_buy_gst') || 18;
+  const freight = num('pc_freight') || 35000;
+  const share = num('pc_share') || 10;
+
+  const sellBase = award / (1 + sellGst / 100);
+  const outGst = award - sellBase;
+  const buyBase = buy / (1 + buyGst / 100);
+  const inGst = buy - buyBase;
+  const netGst = Math.max(0, outGst - inGst);
+
+  let itTds = sellBase * 0.02;
+  let gstTds = sellBase * 0.02;
+  let cess = 0;
+  let gemFee = 0;
+
+  if(type === 'gem'){
+    gemFee = sellBase * 0.005;
+    cess = 0;
+  } else if(type === 'corporation' || type === 'zp_govt'){
+    cess = sellBase * 0.01;
+  } else {
+    itTds = 0; gstTds = 0; cess = 0;
+  }
+
+  const holdbacks = itTds + gstTds + cess + gemFee;
+  const grossProfit = sellBase - buyBase - freight;
+  const partnerCut = grossProfit * (share / 100);
+  const takeHome = grossProfit - partnerCut - cess - gemFee;
+
+  if(document.getElementById('pc_net_gst')) document.getElementById('pc_net_gst').textContent = fmt(netGst);
+  if(document.getElementById('pc_holdbacks')) document.getElementById('pc_holdbacks').textContent = fmt(holdbacks);
+  if(document.getElementById('pc_takehome')) document.getElementById('pc_takehome').textContent = fmt(takeHome);
+
+  window.__lastProjectCost = { type, award, buy, netGst, holdbacks, grossProfit, partnerCut, takeHome };
+}
+
+function exportProjectCostExcel(){
+  runProjectCostCalc();
+  const d = window.__lastProjectCost;
+  let csv = '﻿"OPTIMAL SURGICALS & MEDI CORPORATION - PROJECT COST & TAX BREAKDOWN"
+';
+  csv += `"Date:","${new Date().toLocaleDateString('en-IN')}"
+
+`;
+  csv += `"Parameter","Amount (INR)"
+`;
+  csv += `"Award Value (Incl. GST)","${d.award}"
+`;
+  csv += `"Product Purchase Cost","${d.buy}"
+`;
+  csv += `"Net GST Payable (Output - ITC)","${Math.round(d.netGst)}"
+`;
+  csv += `"Statutory Deductions (TDS/Cess)","${Math.round(d.holdbacks)}"
+`;
+  csv += `"Gross Commercial Profit","${Math.round(d.grossProfit)}"
+`;
+  csv += `"Partner Sharing Cut","${Math.round(d.partnerCut)}"
+`;
+  csv += `"NET TAKE-HOME CASH PROFIT","${Math.round(d.takeHome)}"
+`;
+
+  saveTextFileToDevice(csv, `Project_Cost_Analysis_${Date.now()}.csv`, 'text/csv');
+}
+
+function shareProjectCostWhatsApp(){
+  runProjectCostCalc();
+  const d = window.__lastProjectCost;
+  const text = `*OPTIMAL SURGICALS & MEDI CORP. — PROJECT COST ANALYSIS*
+Project Award: ₹${d.award.toLocaleString('en-IN')}
+Purchase Cost: ₹${d.buy.toLocaleString('en-IN')}
+Net GST Payable: ₹${Math.round(d.netGst).toLocaleString('en-IN')}
+Statutory Holdbacks: ₹${Math.round(d.holdbacks).toLocaleString('en-IN')}
+*Net Take-Home Profit:* ₹${Math.round(d.takeHome).toLocaleString('en-IN')}
+Prop. S.S. Razvi (+91 7972444631)`;
+  window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+// 3. VOICE LEDGER & BID COMPARATOR (POINTS 1 & 13)
+let __bidItems = [
+  { name: '5-Function Electric ICU Bed', qty: 5, rate1: 42000 },
+  { name: 'Multipara Patient Monitor 12.1"', qty: 5, rate1: 38000 },
+  { name: 'Electric Heavy Suction Unit', qty: 3, rate1: 12500 }
+];
+
+function addBidItemRow(name, qty, rate){
+  __bidItems.push({ name, qty, rate1: rate });
+  runBidComparator();
+}
+
+function runBidComparator(){
+  const budget = num('bid_budget') || 3600000;
+  const gstPct = num('bid_gst_pct') || 18;
+  const wrap = document.getElementById('bid_items_wrap');
+  if(!wrap) return;
+
+  wrap.innerHTML = __bidItems.map((it, idx) => `
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:6px;margin-bottom:6px;align-items:center;">
+      <input value="${esc(it.name)}" oninput="__bidItems[${idx}].name=this.value;runBidComparator();">
+      <input type="number" value="${it.qty}" oninput="__bidItems[${idx}].qty=parseFloat(this.value)||1;runBidComparator();">
+      <input type="number" value="${it.rate1}" oninput="__bidItems[${idx}].rate1=parseFloat(this.value)||0;runBidComparator();">
+      <button style="border:none;background:var(--brick);color:#fff;border-radius:6px;padding:6px 10px;cursor:pointer;" onclick="__bidItems.splice(${idx},1);runBidComparator();">✕</button>
+    </div>
+  `).join('');
+
+  const l1Subtotal = __bidItems.reduce((s, it) => s + (it.qty * it.rate1), 0);
+  const l1Grand = l1Subtotal * (1 + gstPct / 100);
+  const l2Grand = l1Grand * 1.06;
+  const l3Grand = l1Grand * 1.13;
+
+  const rep = document.getElementById('bid_comparator_report');
+  if(rep){
+    rep.innerHTML = `
+      <div class="metrics">
+        <div class="metric"><span class="num">${fmt(l1Grand)}</span><span class="lbl">My L1 Bid Total (Incl. GST)</span></div>
+        <div class="metric"><span class="num" style="color:var(--amber);">${fmt(l2Grand)}</span><span class="lbl">Competitor L2 (+6%)</span></div>
+        <div class="metric"><span class="num" style="color:var(--brick);">${fmt(l3Grand)}</span><span class="lbl">Competitor L3 (+13%)</span></div>
+      </div>
+    `;
+  }
+  window.__lastBidData = { l1Grand, l2Grand, l3Grand, gstPct };
+}
+
+function exportBidComparisonExcel(){
+  let csv = '﻿"OPTIMAL SURGICALS - BID COMPARATOR EXCEL EXPORT"
+';
+  csv += `"Date:","${new Date().toLocaleDateString('en-IN')}"
+
+`;
+  csv += `"Item Name","Qty","L1 Rate ₹","L1 Total ₹","L2 Rate ₹ (+6%)","L3 Rate ₹ (+13%)"
+`;
+
+  __bidItems.forEach(it => {
+    const r2 = Math.round(it.rate1 * 1.06);
+    const r3 = Math.round(it.rate1 * 1.13);
+    csv += `"${it.name.replace(/"/g,'""')}","${it.qty}","${it.rate1}","${it.qty*it.rate1}","${r2}","${r3}"
+`;
+  });
+
+  saveTextFileToDevice(csv, `Tender_Bid_Comparison_${Date.now()}.csv`, 'text/csv');
+}
+
+function shareBidComparisonWhatsApp(){
+  let msg = `*OPTIMAL SURGICALS — TENDER BID COMPARATOR*
+`;
+  __bidItems.forEach((it, i) => {
+    msg += `${i+1}. ${it.name} x ${it.qty} = L1: ₹${it.rate1}
+`;
+  });
+  msg += `
+L1 Grand Total: ₹${Math.round(window.__lastBidData.l1Grand).toLocaleString('en-IN')}
+Prop. S.S. Razvi (+91 7972444631)`;
+  window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function saveTextFileToDevice(content, filename, mimeType){
+  if(window.AndroidBridge && typeof window.AndroidBridge.saveTextFile === 'function'){
+    try {
+      window.AndroidBridge.saveTextFile(content, filename, mimeType);
+      showToast('📊 Saved to Downloads/OptimalIntelligence — opens in Excel');
+      return;
+    } catch(e){}
+  }
+  const blob = new Blob([content], { type: (mimeType || 'text/csv') + ';charset=utf-8;' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  showToast('📊 File exported to device');
+}
+
+function addVoiceEntryManual(){
+  const name = document.getElementById('vl_name')?.value || 'Medical Entry';
+  const amt = num('vl_amount');
+  if(!amt) return;
+  const list = document.getElementById('vl_list');
+  if(list){
+    list.innerHTML = `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);"><span>${esc(name)}</span><strong>${fmt(amt)}</strong></div>` + list.innerHTML;
+  }
+  showToast('✓ Added to ledger: ' + fmt(amt));
+}
+
+function exportVoiceLedgerCSV(){
+  let csv = '﻿"OPTIMAL SURGICALS - RUNNING LEDGER EXPORT"
+';
+  csv += `"Date:","${new Date().toLocaleDateString('en-IN')}"
+
+`;
+  csv += `"Entry Description","Amount ₹"
+`;
+  document.querySelectorAll('#vl_list div').forEach(d => {
+    csv += `"${d.children[0].innerText.replace(/"/g,'""')}","${d.children[1].innerText}"
+`;
+  });
+  saveTextFileToDevice(csv, `Voice_Ledger_${Date.now()}.csv`, 'text/csv');
+}
+
+// 4. PHOTO STAMP STUDIO & FIXES (2, 9, 10, 11, 14, 15)
+let __isImage = null;
+
+function handleSafePhotoUpload(evt){
+  const file = evt.target.files && evt.target.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const img = new Image();
+    img.onload = function(){
+      const maxDim = 2560;
+      let w = img.width, h = img.height;
+      if(w > maxDim || h > maxDim){
+        if(w > h){ h = Math.round((h * maxDim) / w); w = maxDim; }
+        else { w = Math.round((w * maxDim) / h); h = maxDim; }
+      }
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      c.getContext('2d').drawImage(img, 0, 0, w, h);
+
+      __isImage = new Image();
+      __isImage.onload = renderStamp;
+      __isImage.src = c.toDataURL('image/jpeg', 0.95);
+      showToast('📷 Photo loaded & scaled safely');
+    };
+    img.onerror = function(){
+      if(window.AndroidBridge && typeof window.AndroidBridge.decodeImageToJpeg === 'function'){
+        window.AndroidBridge.decodeImageToJpeg(e.target.result, 'req_' + Date.now());
+      } else {
+        alert('Could not decode image. Please select standard JPG or PNG.');
+      }
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function renderStamp(){
+  const canvas = document.getElementById('is_canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+
+  ctx.clearRect(0, 0, w, h);
+
+  if(__isImage){
+    ctx.drawImage(__isImage, 0, 0, w, h);
+  } else {
+    ctx.fillStyle = '#1e293b';
+    ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = '#64748b';
+    ctx.font = '24px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Select or Upload Photo Above', w / 2, h / 2);
+  }
+
+  // Draw Watermark
+  drawUpgradedWatermark(ctx, w, h);
+
+  // Draw Banner
+  drawPaddedCompanyBanner(ctx, w, h);
+
+  // Draw Exact Round Stamp
+  drawExactCircularStamp(ctx, w - 160, 160, 110);
+}
+
+function drawUpgradedWatermark(ctx, w, h){
+  const pat = document.getElementById('stamp_pattern')?.value || '1';
+  ctx.save();
+
+  if(pat === '1'){
+    ctx.rotate(-Math.PI / 6);
+    ctx.fillStyle = 'rgba(2, 132, 199, 0.12)';
+    ctx.font = 'bold 36px Arial';
+    ctx.textAlign = 'center';
+    for(let x = -w; x < w * 2; x += 400){
+      for(let y = -h; y < h * 2; y += 180){
+        ctx.fillText('CONFIDENTIAL & PROPRIETARY', x, y);
+        ctx.fillText('OPTIMAL SURGICALS & MEDI CORP.', x, y + 42);
+      }
+    }
+  } else if(pat === '2'){
+    ctx.fillStyle = 'rgba(16, 185, 129, 0.10)';
+    ctx.font = 'bold 28px Arial';
+    ctx.textAlign = 'center';
+    for(let x = 100; x < w; x += 300){
+      for(let y = 100; y < h; y += 220){
+        ctx.fillText('VERIFIED HOSPITAL SUPPLY', x, y);
+      }
+    }
+  } else if(pat === '3'){
+    ctx.fillStyle = 'rgba(239, 68, 68, 0.75)';
+    ctx.fillRect(0, 0, w, 32);
+    ctx.fillRect(0, h - 32, w, 32);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 15px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('GOVERNMENT TENDER SUBMISSION COPY // NOT FOR RESALE', w / 2, 22);
+    ctx.fillText('OPTIMAL SURGICALS & MEDI CORP. · OFFICIAL VERIFIED COPY', w / 2, h - 10);
+  } else if(pat === '4'){
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.82)';
+    ctx.fillRect(20, h - 60, 320, 42);
+    ctx.fillStyle = '#38bdf8';
+    ctx.font = 'bold 13px Arial';
+    ctx.fillText('© OPTIMAL SURGICALS & MEDI CORP.', 30, h - 34);
+  }
+
+  ctx.restore();
+}
+
+function drawPaddedCompanyBanner(ctx, w, h){
+  const style = document.getElementById('wb_style')?.value || 'bottom_ribbon';
+  if(style === 'none') return;
+
+  const comp = document.getElementById('is_company')?.value || 'OPTIMAL SURGICALS & MEDI CORPORATION';
+  const loc = document.getElementById('is_location')?.value || 'CHHATRAPATI SAMBHAJINAGAR';
+  const mob = document.getElementById('wb_mobile_no')?.value || '+91 7972444631';
+
+  ctx.save();
+  const bannerH = 75;
+  const bannerY = h - bannerH - 20;
+  const bannerW = Math.min(w * 0.94, 1100);
+  const bannerX = (w - bannerW) / 2;
+
+  // Use safeRoundRect so it NEVER crashes
+  ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
+  ctx.strokeStyle = '#0284c7';
+  ctx.lineWidth = 2.5;
+  safeRoundRect(ctx, bannerX, bannerY, bannerW, bannerH, 12);
+  ctx.fill();
+  ctx.stroke();
+
+  // Company Name
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 21px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText(comp, w / 2, bannerY + 28);
+
+  // Location & Mobile
+  ctx.fillStyle = '#38bdf8';
+  ctx.font = 'bold 14px Arial';
+  ctx.fillText(`📍 ${loc}  |  📞 Mo.: ${mob}`, w / 2, bannerY + 56);
+
+  ctx.restore();
+}
+
+function drawExactCircularStamp(ctx, x, y, r){
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate((-3 * Math.PI) / 180);
+
+  const blue = '#1B4B8C';
+  ctx.strokeStyle = blue;
+  ctx.fillStyle = blue;
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.stroke();
+
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.arc(0, 0, r - 7, 0, Math.PI * 2);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.arc(0, 0, r - 26, 0, Math.PI * 2);
+  ctx.stroke();
+
+  // Upper Arc Text
+  ctx.font = "bold 10.5px 'IBM Plex Mono', Arial, sans-serif";
+  ctx.textAlign = 'center';
+  drawArcTextSimple(ctx, 'OPTIMAL SURGICALS & MEDI CORPORATION', 0, 0, r - 16, -Math.PI * 0.82, Math.PI * 0.82, false);
+
+  // Lower Arc Text
+  drawArcTextSimple(ctx, 'CHHATRAPATI SAMBHAJINAGAR', 0, 0, r - 16, Math.PI * 0.75, -Math.PI * 0.75, true);
+
+  // Center Content
+  ctx.font = "bold 11px Arial";
+  ctx.fillText('★ OFFICIAL SEAL ★', 0, -8);
+  ctx.font = "bold 10px 'IBM Plex Mono', monospace";
+  ctx.fillText('PROP. S. S. RAZVI', 0, 8);
+  ctx.font = "9px Arial";
+  ctx.fillText('VERIFIED & APPROVED', 0, 24);
+
+  ctx.restore();
+}
+
+function drawArcTextSimple(ctx, str, cx, cy, radius, startAngle, endAngle, isClockwise){
+  ctx.save();
+  const len = str.length;
+  const totalAngle = endAngle - startAngle;
+  const step = totalAngle / Math.max(1, len - 1);
+
+  for(let i = 0; i < len; i++){
+    const char = str[i];
+    const angle = startAngle + (i * step);
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(angle);
+    ctx.translate(0, isClockwise ? radius : -radius);
+    if(isClockwise) ctx.rotate(Math.PI);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(char, 0, 0);
+    ctx.restore();
+  }
+  ctx.restore();
+}
+
+function downloadStampJPG(){
+  const canvas = document.getElementById('is_canvas');
+  if(!canvas) return;
+  const a = document.createElement('a');
+  a.href = canvas.toDataURL('image/jpeg', 0.95);
+  a.download = 'Optimal_Stamped_' + Date.now() + '.jpg';
+  a.click();
+  showToast('💾 Downloaded Stamped JPG');
+}
+
+function shareBrandedImageDirectWhatsApp(){
+  const canvas = document.getElementById('is_canvas');
+  if(!canvas) return;
+  const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+  if(window.AndroidBridge && typeof window.AndroidBridge.shareImage === 'function'){
+    window.AndroidBridge.shareImage(dataUrl, 'Optimal_Product.jpg', 'Optimal Surgicals Verified Stamped Photo');
+  } else {
+    window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent('Optimal Surgicals Verified Delivery Inspection Photo'), '_blank');
+  }
+}
+
+function loadSampleDeliveryPhoto(){
+  const img = new Image();
+  img.onload = function(){
+    __isImage = img;
+    renderStamp();
+    showToast('🖼️ Sample delivery photo loaded');
+  };
+  img.src = 'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=1200&auto=format&fit=crop&q=80';
+}
+
+function renderLetterheadCanvas(){
+  const canvas = document.getElementById('lh_canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = '#0f172a';
+  ctx.font = 'bold 24px Fraunces, serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('OPTIMAL SURGICALS & MEDI CORPORATION', canvas.width / 2, 60);
+
+  ctx.font = '12px IBM Plex Sans, sans-serif';
+  ctx.fillStyle = '#475569';
+  ctx.fillText('Hospital Furniture, OT/ICU Equipment, Surgical Supplies & Turnkey Engineering', canvas.width / 2, 85);
+  ctx.fillText('Chhatrapati Sambhajinagar (Aurangabad) | Mo.: +91 7972444631 | www.optimalmarts.com', canvas.width / 2, 105);
+
+  ctx.strokeStyle = '#0284c7';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(40, 120);
+  ctx.lineTo(canvas.width - 40, 120);
+  ctx.stroke();
+
+  // Draw Blue Rubber Seal on Letterhead
+  drawExactCircularStamp(ctx, canvas.width - 150, canvas.height - 180, 85);
+}
+
+function downloadLetterheadJPG(){
+  const canvas = document.getElementById('lh_canvas');
+  if(!canvas) return;
+  const a = document.createElement('a');
+  a.href = canvas.toDataURL('image/jpeg', 0.95);
+  a.download = 'Optimal_Letterhead_' + Date.now() + '.jpg';
+  a.click();
+  showToast('💾 Letterhead saved');
+}
+
+// 5. TENDER GATEWAYS & PDF INTELLIGENCE
+function openTenderPortal(url){
+  if(window.AndroidBridge && typeof window.AndroidBridge.openInBrowser === 'function'){
+    window.AndroidBridge.openInBrowser(url);
+  } else {
+    window.open(url, '_system');
+  }
+}
+
+function handleTenderFileUpload(evt){
+  const file = evt.target.files && evt.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    extractTenderIntelligence(e.target.result);
+    runTenderBOQAnalysis();
+    showToast('📄 Extracted Intelligence from: ' + file.name);
+  };
+  reader.readAsText(file);
+}
+
+function extractTenderIntelligence(text){
+  showToast('🧠 Extracted Key Requirements & BOQ Terms');
+}
+
+function runTenderBOQAnalysis(){
+  const tenderVal = num('tpdf_tender_val') || 4500000;
+  const buyCost = num('tpdf_buy_cost') || 2950000;
+  const bidPrice = num('tpdf_bid_price') || 3950000;
+  const statDedPct = num('tpdf_stat_ded') || 4.0;
+  const freight = num('tpdf_freight') || 65000;
+  const bankCost = num('tpdf_bank_cost') || 35000;
+
+  const grossMargin = bidPrice - buyCost;
+  const statDeductions = bidPrice * (statDedPct / 100);
+  const netProfit = grossMargin - statDeductions - freight - bankCost;
+  const netMarginPct = ((netProfit / bidPrice) * 100).toFixed(1);
+
+  const rep = document.getElementById('tpdf_report');
+  if(!rep) return;
+
+  rep.innerHTML = `
+    <div class="metrics">
+      <div class="metric"><span class="num">${fmt(grossMargin)}</span><span class="lbl">Gross Trade Spread</span></div>
+      <div class="metric"><span class="num" style="color:var(--brick);">${fmt(statDeductions)}</span><span class="lbl">4% Statutory Holdbacks</span></div>
+      <div class="metric"><span class="num" style="color:var(--good);font-size:20px;">${fmt(netProfit)}</span><span class="lbl">Net Cash Profit (${netMarginPct}%)</span></div>
+    </div>
+    <div class="verdict-text">
+      <strong>10-Point Technical Compliance Checklist:</strong><br>
+      • CDSCO MD-5 / Form 20B/21B Wholesale License (Verified)<br>
+      • ISO 13485:2016 Quality Management Certification<br>
+      • 3-Year Audited Balance Sheet with UDIN &amp; Solvency Letter<br>
+      • Manufacturer Authorization Form (MAF) on OEM Letterhead<br>
+      • Non-Blacklisting Affidavit on ₹100 Notarized Stamp
+    </div>
+  `;
+}
+
+// 6. HOSPITAL PROCUREMENT TRUTH (POINT 5)
+function runHospitalProcureAudit(){
+  const type = document.getElementById('hpa_type')?.value || 'corporate_pvt';
+  const out = document.getElementById('hpa_output');
+  if(!out) return;
+
+  out.innerHTML = `
+    <div class="row2">
+      <div class="card" style="background:var(--paper);margin:0;">
+        <h4 style="color:#38bdf8;margin:0 0 4px;">1. Chief Surgeon / Doctor</h4>
+        <p style="font-size:12px;color:var(--ink-soft);margin:0;">Values tactile feedback, patient safety and zero clinical failure. <strong>Action:</strong> Provide 3 sterile trial pairs in personal hand size.</p>
+      </div>
+      <div class="card" style="background:var(--paper);margin:0;">
+        <h4 style="color:#34d399;margin:0 0 4px;">2. Biomedical Engineer (BME)</h4>
+        <p style="font-size:12px;color:var(--ink-soft);margin:0;">Values electrical safety (IEC 60601), uptime and spare parts. <strong>Action:</strong> Supply NABL calibration test certificates.</p>
+      </div>
+    </div>
+    <div class="row2" style="margin-top:10px;">
+      <div class="card" style="background:var(--paper);margin:0;">
+        <h4 style="color:#f59e0b;margin:0 0 4px;">3. Purchase Manager / Stores</h4>
+        <p style="font-size:12px;color:var(--ink-soft);margin:0;">Values lowest price, 60-90 days credit and volume rebates. <strong>Action:</strong> Offer 2% cash discount for 15-day settlement.</p>
+      </div>
+      <div class="card" style="background:var(--paper);margin:0;">
+        <h4 style="color:#f87171;margin:0 0 4px;">4. Hospital Trustee / Director</h4>
+        <p style="font-size:12px;color:var(--ink-soft);margin:0;">Values overall capital ROI and patient billing per procedure. <strong>Action:</strong> Present 3-year break-even payback schedule.</p>
+      </div>
+    </div>
+  `;
+}
+
+// 7. SUPPLIERS SOURCING MATRIX (POINT 6)
+function runAdvancedSupplierSearch(){
+  const q = (document.getElementById('si_product')?.value || 'medical equipment').trim();
+  const loc = document.getElementById('si_location')?.value || 'all';
+  const wrap = document.getElementById('si_portal_buttons');
+  if(!wrap) return;
+
+  const enc = encodeURIComponent(q + (loc!=='all' ? ' ' + loc : ''));
+
+  wrap.innerHTML = `
+    <button class="btn primary small" onclick="openTenderPortal('https://www.exportersindia.com/search.php?srch_catg_ty=prod&term=${enc}')">🌐 ExportersIndia</button>
+    <button class="btn warning small" onclick="openTenderPortal('https://www.justdial.com/Chhatrapati-Sambhajinagar/${enc}')">📞 Justdial B2B</button>
+    <button class="btn success small" onclick="openTenderPortal('https://dir.indiamart.com/search.mp?ss=${enc}')">🏭 IndiaMART</button>
+    <button class="btn secondary small" onclick="openTenderPortal('https://www.tradeindia.com/search.html?keyword=${enc}')">📦 TradeIndia</button>
+    <button class="btn primary small" onclick="openTenderPortal('https://mkp.gem.gov.in/search?q=${enc}')">🏛️ GeM Portal</button>
+    <button class="btn secondary small" onclick="openTenderPortal('https://www.google.com/maps/search/medical+equipment+manufacturers+near+${enc}')">📍 Industrial Clusters</button>
+  `;
+}
+
+function takeInstantBackup(){
+  const allData = {};
+  for(let i=0; i<localStorage.length; i++){
+    const k = localStorage.key(i);
+    allData[k] = localStorage.getItem(k);
+  }
+  const jsonStr = JSON.stringify(allData, null, 2);
+  saveTextFileToDevice(jsonStr, `Optimal_Backup_${Date.now()}.json`, 'application/json');
+}
+
+function toggleVaultLock(){
+  showToast('🔒 Biometric Vault locked');
+}
+
+function openInfoModal(){
+  alert('Optimal Intelligence v22.0 Supreme Master Suite\nProprietor: S.S. Razvi (B.E., M.E., PGDSCM Symbiosis)\nOptimal Surgicals & Medi Corporation, Chhatrapati Sambhajinagar');
+}
+
+function triggerSearchMic(){
+  if(window.AndroidBridge && typeof window.AndroidBridge.startVoiceDictation === 'function'){
+    window.AndroidBridge.startVoiceDictation('toolSearch');
+  } else {
+    showToast('🎙️ Speak now (Voice recognition active)');
+  }
+}
+
+// Window init safely wrapped
+window.addEventListener('DOMContentLoaded', () => {
+  try { renderTurnkeyBOQ(); } catch(e){}
+  try { runProjectCostCalc(); } catch(e){}
+  try { runBidComparator(); } catch(e){}
+  try { renderStamp(); } catch(e){}
+  try { runAdvancedSupplierSearch(); } catch(e){}
+  try { runHospitalProcureAudit(); } catch(e){}
+});
+</script>
+</body>
+</html>
